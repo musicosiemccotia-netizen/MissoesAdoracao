@@ -1,0 +1,405 @@
+/* =======================================================
+   PÁGINA
+======================================================= */
+
+.identificacao{
+    position:relative;
+    width:100%;
+    min-height:100vh;
+    overflow:hidden;
+}
+
+
+/* =======================================================
+   IMAGEM DE FUNDO
+======================================================= */
+
+.identificacao-background{
+
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+
+    z-index:0;
+
+}
+
+
+/* =======================================================
+   CONTEÚDO DA PÁGINA
+======================================================= */
+
+.identificacao-content{
+    position:relative;
+    z-index:1;
+
+    width:100%;
+    min-height:100vh;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+
+/* =======================================================
+   LOGO
+======================================================= */
+
+.identificacao-logo{
+
+    width:170px;
+
+    margin-top:50px;
+    margin-bottom:-15px;
+
+    opacity:0;
+
+    animation:fadeDown .5s ease forwards;
+
+    animation-delay:.15s;
+
+}
+
+
+/* =======================================================
+   TÍTULO
+======================================================= */
+
+.identificacao-titulo{
+
+    font-size:42px;
+
+    color:#111;
+
+    margin-bottom:10px;
+
+    opacity:0;
+
+    animation:fadeDown .45s ease forwards;
+
+    animation-delay:.35s;
+
+}
+
+
+/* =======================================================
+   SUBTÍTULO
+======================================================= */
+
+.identificacao-subtitulo{
+
+    font-size:18px;
+
+    color:#555;
+
+    margin-bottom:40px;
+
+    opacity:0;
+
+    animation:fadeDown .45s ease forwards;
+
+    animation-delay:.50s;
+
+}
+
+
+/* =======================================================
+   TEXTO DOS CAMPOS
+======================================================= */
+
+/* =======================================================
+   BLOCO DE CADA CAMPO
+======================================================= */
+
+.campo{
+
+    width:420px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    opacity:0;
+
+    animation:fadeDown .45s ease forwards;
+
+}
+
+.campo1{
+    animation-delay:.65s;
+}
+
+.campo2{
+    animation-delay:.80s;
+}
+
+.campo3{
+    animation-delay:.95s;
+}
+
+.campo4{
+    animation-delay:1.10s;
+}
+
+.campo5{
+    animation-delay:1.25s;
+}
+
+.identificacao-label{
+
+    width:420px;
+
+    font-weight:600;
+
+    margin-bottom:8px;
+
+}
+
+
+/* =======================================================
+   CAMPOS DE TEXTO
+======================================================= */
+
+.identificacao-input{
+
+    width:420px;
+
+    height:60px;
+
+    border:1px solid #d8d8d8;
+
+    border-radius:12px;
+
+    padding:0 18px;
+
+    font-size:16px;
+
+    font-family:inherit;
+
+    margin-bottom:20px;
+
+    background:white;
+
+    color:#100;
+
+}
+
+/* =======================================================
+   TEXTO DE EXEMPLO (PLACEHOLDER)
+======================================================= */
+
+/* =======================================================
+   TEXTO DE EXEMPLO (PLACEHOLDER)
+======================================================= */
+
+.identificacao-input::placeholder{
+
+    color:#8d8d8d;
+
+    font-size:13px;
+
+    font-style:italic;
+
+    opacity:1;
+
+}
+
+/* =======================================================
+   LISTAS (SELECT)
+======================================================= */
+
+.identificacao-select{
+
+    width:420px;
+
+    height:60px;
+
+    border:1px solid #d8d8d8;
+
+    border-radius:12px;
+
+    padding:0 18px;
+
+    font-size:16px;
+
+    margin-bottom:20px;
+
+    background:white;
+
+    font-family: inherit;
+    
+    color:#100;
+}
+
+
+/* =======================================================
+   BOTÃO
+======================================================= */
+
+.continue-button{
+
+    margin-top:-30px;
+
+    border:none;
+
+    background:none;
+
+    cursor:pointer;
+
+    opacity:0;
+
+    animation:
+        fadeDown .45s ease forwards 1.45s,
+        pulse 2.2s infinite 2.3s;
+
+}
+
+
+/* =======================================================
+   IMAGEM DO BOTÃO
+======================================================= */
+
+.continue-button img{
+
+    width:320px;
+
+}
+
+/* =======================================================
+   MENSAGEM DE ERRO
+======================================================= */
+
+.mensagem-erro{
+
+    margin-top:-60px;      /* sobe a mensagem */
+
+    margin-bottom:40px;    /* cria espaço abaixo */
+
+    color:#c62828;
+
+    font-size:px;
+
+    font-weight:600;
+
+    text-align:center;
+
+    width:90%;
+
+}
+
+/* =======================================================
+   CAMPOS COM ERRO
+======================================================= */
+
+.erro{
+
+    border:2px solid #d32f2f !important;
+
+}
+
+/* =======================================================
+   ANIMAÇÃO - APARECER DE CIMA PARA BAIXO
+======================================================= */
+
+/*******************************************************
+ ANIMAÇÃO DO BOTÃO
+********************************************************/
+
+@keyframes pulse{
+
+    0%{
+        transform:scale(1);
+    }
+
+    8%{
+        transform:scale(1.05);
+    }
+
+    16%{
+        transform:scale(1);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+
+}
+
+@keyframes fadeDown {
+
+    from{
+        opacity:0;
+        transform:translateY(-20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+/* =======================================================
+   RESPONSIVIDADE - CELULAR
+======================================================= */
+
+@media (max-width: 768px){
+
+.identificacao-titulo{
+
+    font-size:28px;
+
+    text-align:center;
+
+}
+
+.identificacao-subtitulo{
+
+    font-size:16px;
+
+    text-align:center;
+
+    width:90%;
+
+}
+
+.campo{
+
+    width:90%;
+
+}
+
+.identificacao-input{
+
+    width:100%;
+
+}
+
+.identificacao-select{
+
+    width:100%;
+
+}
+
+.identificacao-label{
+
+    width:100%;
+
+}
+
+.continue-button img{
+
+    width:280px;
+
+}
+
+}
