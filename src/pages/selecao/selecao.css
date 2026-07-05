@@ -34,3 +34,123 @@
     background-repeat:no-repeat;
 
 }
+
+/* =======================================================
+   CONTEÚDO
+======================================================= */
+
+.selecao-content{
+
+    position:relative;
+
+    z-index:1;
+
+    width:100%;
+    min-height:100vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding-bottom:120px;
+
+}
+
+/* =======================================================
+   MENSAGEM
+======================================================= */
+
+.mensagem-semeando{
+
+    font-size:28px;
+
+    font-weight:600;
+
+    color:#111111;
+
+    text-align:center;
+
+    line-height:1.6;
+
+    animation:pulsar 2s ease-in-out infinite;
+
+}
+
+/* =======================================================
+   ANIMAÇÃO - PULSAR
+======================================================= */
+
+@keyframes pulsar{
+
+    0%{
+
+        opacity:.45;
+
+        transform:scale(1);
+
+    }
+
+    50%{
+
+        opacity:1;
+
+        transform:scale(1.02);
+
+    }
+
+    100%{
+
+        opacity:.45;
+
+        transform:scale(1);
+
+    }
+
+}
+
+/* =======================================================
+   LOGO
+======================================================= */
+
+.selecao-logo{
+
+    width:300px;
+
+    margin-bottom:-10px;
+
+    animation:pulsarLogo 2.5s ease-in-out infinite;
+
+}
+
+/* =======================================================
+   ANIMAÇÃO - PULSAR LOGO
+======================================================= */
+
+@keyframes pulsarLogo{
+
+    0%{
+
+        transform:scale(1);
+        opacity:.90;
+
+    }
+
+    50%{
+
+        transform:scale(1.05);
+        opacity:1;
+
+    }
+
+    100%{
+
+        transform:scale(1);
+        opacity:.90;
+
+    }
+
+}
