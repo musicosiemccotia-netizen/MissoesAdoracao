@@ -1,6 +1,6 @@
 import background from '../../assets/images/background/background.png'
 
-import './Selecao.css'
+import './selecao.css'
 
 function Selecao() {
 
