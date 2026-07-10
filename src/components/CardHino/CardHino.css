@@ -1,0 +1,87 @@
+/* =======================================================
+   CARD
+======================================================= */
+
+.card-hino{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:18px 22px;
+
+    margin-bottom:15px;
+
+    cursor:pointer;
+
+    box-shadow:0 8px 30px rgba(0,0,0,.10);
+
+    transition:.25s;
+
+}
+
+.card-hino:hover{
+
+    transform:translateY(-2px);
+
+}
+
+
+/* =======================================================
+   TEXTO
+======================================================= */
+
+.card-info h2{
+
+    font-size:22px;
+
+    color:#111;
+
+    margin-bottom:6px;
+
+}
+
+.card-info p{
+
+    color:#666;
+
+    font-size:15px;
+
+    margin-bottom:8px;
+
+}
+
+.card-info span{
+
+    display:inline-block;
+
+    padding:4px 10px;
+
+    border-radius:30px;
+
+    background:#edf2ff;
+
+    color:#2d4da5;
+
+    font-size:13px;
+
+}
+
+
+/* =======================================================
+   SETA
+======================================================= */
+
+.card-arrow{
+
+    font-size:24px;
+
+    color:#999;
+
+}

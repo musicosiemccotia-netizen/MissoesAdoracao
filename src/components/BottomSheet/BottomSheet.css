@@ -1,0 +1,271 @@
+/* =======================================================
+   OVERLAY
+======================================================= */
+
+.overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:flex-end;
+
+    z-index:999;
+
+}
+
+
+/* =======================================================
+   BOTTOM SHEET
+======================================================= */
+
+.bottom-sheet{
+
+    width:100%;
+
+    max-width:600px;
+
+    min-height:60vh;
+
+    background:#ffffff;
+
+    border-radius:28px 28px 0 0;
+
+    padding:30px;
+
+    animation:subir .25s ease;
+
+}
+
+
+/* =======================================================
+   ALÇA SUPERIOR
+======================================================= */
+
+.bottom-sheet::before{
+
+    content:"";
+
+    display:block;
+
+    width:60px;
+
+    height:6px;
+
+    margin:0 auto 25px;
+
+    border-radius:999px;
+
+    background:#d6d6d6;
+
+}
+
+
+/* =======================================================
+   TÍTULO
+======================================================= */
+
+.bottom-sheet h2{
+
+    font-size:30px;
+
+    font-weight:700;
+
+    color:#666666;
+
+    margin-bottom:10px;
+
+}
+
+
+/* =======================================================
+   AUTOR
+======================================================= */
+
+.bottom-sheet p{
+
+    font-size:18px;
+
+    color:#666666;
+
+    margin-bottom:30px;
+
+}
+
+
+/* =======================================================
+   ANIMAÇÃO
+======================================================= */
+
+@keyframes subir{
+
+    from{
+
+        transform:translateY(100%);
+
+    }
+
+    to{
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* =======================================================
+   QUANTIDADE DE VERSÕES
+======================================================= */
+
+.quantidade-versoes{
+
+    color:#888;
+
+    font-size:15px;
+
+    margin-bottom:30px;
+
+}
+
+
+/* =======================================================
+   LISTA DE VERSÕES
+======================================================= */
+
+.lista-versoes{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+}
+
+
+/* =======================================================
+   CARD DA VERSÃO
+======================================================= */
+
+.card-versao{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:18px 20px;
+
+    background:#F7F8FA;
+
+    border:none;
+
+    border-radius:16px;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+    font-size:17px;
+
+    color:#222;
+
+}
+
+.card-versao:hover{
+
+    background:#ECEEF2;
+
+}
+
+.card-versao span:last-child{
+
+    font-size:22px;
+
+    color:#888;
+
+}
+
+.card-versao:hover{
+
+    background:#ececec;
+
+}
+
+
+/* =======================================================
+   SOLICITAR VERSÃO
+======================================================= */
+
+.solicitar-versao{
+
+    margin-top:28px;
+
+    text-align:center;
+
+}
+
+.solicitar-versao p{
+
+    color:#888;
+
+    font-size:15px;
+
+    margin-bottom:10px;
+
+}
+
+.solicitar-versao button{
+
+    border:none;
+
+    background:none;
+
+    color:#2E5AAC;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+}
+
+/* =======================================================
+   TÍTULO VERSÕES
+======================================================= */
+
+.titulo-versoes{
+
+    margin-top:30px;
+
+    margin-bottom:18px;
+
+    font-size:13px;
+
+    letter-spacing:2px;
+
+    font-weight:700;
+
+    color:#999999;
+
+}
+
+.linha{
+
+    border:none;
+
+    border-top:1px solid #ececec;
+
+    margin:24px 0;
+
+}

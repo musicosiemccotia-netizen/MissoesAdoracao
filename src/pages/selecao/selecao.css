@@ -16,27 +16,24 @@
 
 
 /* =======================================================
-   IMAGEM DE FUNDO
+   FUNDO
 ======================================================= */
 
 .selecao-background{
 
     position:absolute;
 
-    top:0;
-    left:0;
-
-    width:100%;
-    height:100%;
+    inset:0;
 
     background-size:cover;
+
     background-position:center;
-    background-repeat:no-repeat;
 
 }
 
+
 /* =======================================================
-   CONTEÚDO
+   LAYOUT
 ======================================================= */
 
 .selecao-content{
@@ -45,72 +42,26 @@
 
     z-index:1;
 
-    width:100%;
     min-height:100vh;
 
     display:flex;
 
     flex-direction:column;
 
-    justify-content:center;
-
     align-items:center;
 
-    padding-bottom:120px;
+    padding-top:90px;
+
+    transition:padding .30s ease;
 
 }
 
-/* =======================================================
-   MENSAGEM
-======================================================= */
+.modo-pesquisa{
 
-.mensagem-semeando{
-
-    font-size:28px;
-
-    font-weight:600;
-
-    color:#111111;
-
-    text-align:center;
-
-    line-height:1.6;
-
-    animation:pulsar 2s ease-in-out infinite;
+    padding-top:30px;
 
 }
 
-/* =======================================================
-   ANIMAÇÃO - PULSAR
-======================================================= */
-
-@keyframes pulsar{
-
-    0%{
-
-        opacity:.45;
-
-        transform:scale(1);
-
-    }
-
-    50%{
-
-        opacity:1;
-
-        transform:scale(1.02);
-
-    }
-
-    100%{
-
-        opacity:.45;
-
-        transform:scale(1);
-
-    }
-
-}
 
 /* =======================================================
    LOGO
@@ -118,39 +69,249 @@
 
 .selecao-logo{
 
-    width:300px;
+    width:170px;
 
-    margin-bottom:-10px;
+    margin-bottom:20px;
 
-    animation:pulsarLogo 2.5s ease-in-out infinite;
+    transition:
+        width .30s ease,
+        margin .30s ease;
+
+}
+
+.modo-pesquisa .selecao-logo{
+
+    width:70px;
+
+    margin-bottom:12px;
+
+}
+
+
+/* =======================================================
+   TÍTULOS
+======================================================= */
+
+.titulo{
+
+    font-size:34px;
+
+    color:#111111;
+
+    margin-bottom:45px;
+
+    transition:
+        font-size .30s ease,
+        margin .30s ease;
+
+}
+
+.modo-pesquisa .titulo{
+
+    font-size:30px;
+
+    margin-bottom:20px;
+
+}
+
+
+/* =======================================================
+   FORMULÁRIOS
+======================================================= */
+
+.pesquisa{
+
+    width:90%;
+
+    max-width:520px;
+
+    padding:18px 22px;
+
+    border:none;
+
+    border-radius:18px;
+
+    font-size:18px;
+
+    color:#333333;
+
+    background:#ffffff;
+
+    box-shadow:0 8px 30px rgba(0,0,0,.12);
+
+    outline:none;
+
+    transition:
+        padding .30s ease,
+        box-shadow .30s ease;
+
+}
+
+.pesquisa::placeholder{
+
+    color:#666666;
+
+    opacity:1;
+
+}
+
+.modo-pesquisa .pesquisa{
+
+    padding:15px 20px;
+
+}
+
+
+/* =======================================================
+   LISTAS
+======================================================= */
+
+.lista-hinos{
+
+    width:90%;
+
+    max-width:520px;
+
+    margin-top:30px;
+
+    transition:margin .30s ease;
+
+}
+
+.modo-pesquisa .lista-hinos{
+
+    margin-top:15px;
+
+}
+
+
+/* =======================================================
+   CARDS
+======================================================= */
+
+.card-hino{
+
+    background:#ffffff;
+
+    border-radius:18px;
+
+    padding:18px 22px;
+
+    margin-bottom:15px;
+
+    box-shadow:0 8px 30px rgba(0,0,0,.10);
+
+    cursor:pointer;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+
+}
+
+.card-hino:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.card-hino h2{
+
+    font-size:20px;
+
+    color:#111111;
+
+    margin-bottom:5px;
+
+}
+
+.card-hino p{
+
+    font-size:15px;
+
+    color:#666666;
+
+}
+
+
+/* =======================================================
+   BOTÕES
+======================================================= */
+
+
+
+/* =======================================================
+   ANIMAÇÕES
+======================================================= */
+
+
+
+/* =======================================================
+   RESPONSIVIDADE
+======================================================= */
+
+@media (max-width:768px){
+
+    .titulo{
+
+        font-size:30px;
+
+    }
+
+    .modo-pesquisa .titulo{
+
+        font-size:26px;
+
+    }
 
 }
 
 /* =======================================================
-   ANIMAÇÃO - PULSAR LOGO
+   BARRA DA SELEÇÃO
 ======================================================= */
 
-@keyframes pulsarLogo{
+.barra-selecao{
 
-    0%{
+    position:fixed;
 
-        transform:scale(1);
-        opacity:.90;
+    bottom:20px;
 
-    }
+    left:50%;
 
-    50%{
+    transform:translateX(-50%);
 
-        transform:scale(1.05);
-        opacity:1;
+    width:92%;
 
-    }
+    max-width:550px;
 
-    100%{
+    background:#ffffff;
 
-        transform:scale(1);
-        opacity:.90;
+    border-radius:18px;
 
-    }
+    box-shadow:0 12px 35px rgba(0,0,0,.18);
+
+    padding:18px 22px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    z-index:999;
+
+}
+
+.barra-selecao button{
+
+    border:none;
+
+    background:none;
+
+    color:#2E5AAC;
+
+    font-weight:600;
+
+    cursor:pointer;
 
 }

@@ -1,4 +1,9 @@
+// =======================================================
+// IMPORTS
+// =======================================================
+
 import { useNavigate } from 'react-router-dom'
+
 import background from '../../assets/images/background/background-com-barra.png'
 import botaoComecar from '../../assets/images/home/botao-comecar.png'
 import logo from '../../assets/images/home/logo.png'
@@ -8,56 +13,77 @@ import bemVindo from '../../assets/images/home/bem-vindo.png'
 
 import './Home.css'
 
+
+// =======================================================
+// COMPONENTE
+// =======================================================
+
 function Home() {
-  const navigate = useNavigate()
-  return (
-    <main className="home">
 
-      <div
-        className="home-background"
-        style={{ backgroundImage: `url(${background})` }}
-      ></div>
+    // =======================================================
+    // HOOKS
+    // =======================================================
 
-      <div className="content">
+    const navigate = useNavigate()
 
-  <img
-    src={logo}
-    alt="Logo"
-    className="logo"
-  />
 
-  <img
-    src={missoes}
-    alt="Missões"
-    className="missoes"
-  />
+    // =======================================================
+    // JSX
+    // =======================================================
 
-  <img
-    src={adoracao}
-    alt="Adoração"
-    className="adoracao"
-  />
+    return (
 
-  <img
-    src={bemVindo}
-    alt="Seja bem-vindo"
-    className="bem-vindo"
-  />
+        <main className="home">
 
-  <button
-  className="start-button"
-  onClick={() => navigate('/identificacao')}
->
-    <img
-      src={botaoComecar}
-      alt="Começar"
-    />
-  </button>
+            <div
+                className="home-background"
+                style={{ backgroundImage: `url(${background})` }}
+            ></div>
 
-</div>
+            <div className="content">
 
-    </main>
-  )
+                <img
+                    src={logo}
+                    alt="Logo"
+                    className="logo"
+                />
+
+                <img
+                    src={missoes}
+                    alt="Missões"
+                    className="missoes"
+                />
+
+                <img
+                    src={adoracao}
+                    alt="Adoração"
+                    className="adoracao"
+                />
+
+                <img
+                    src={bemVindo}
+                    alt="Seja bem-vindo"
+                    className="bem-vindo"
+                />
+
+                <button
+                    className="start-button"
+                    onClick={() => navigate('/identificacao')}
+                >
+
+                    <img
+                        src={botaoComecar}
+                        alt="Começar"
+                    />
+
+                </button>
+
+            </div>
+
+        </main>
+
+    )
+
 }
 
 export default Home
