@@ -1,0 +1,29 @@
+/* =======================================================
+   IDENTIDADE VISUAL
+======================================================= */
+
+:root{
+
+    /* Vermelho oficial */
+
+    --primary-red:#B71C1C;
+
+    /* Azul oficial */
+
+    --primary-blue:#1E4D8C;
+
+    /* Branco quente */
+
+    --white-soft:#F5F1E8;
+
+    /* Fundo */
+
+    --background:#F7F8FA;
+
+    /* Texto */
+
+    --text-dark:#222222;
+
+    --text-light:#666666;
+
+}

@@ -2,7 +2,7 @@
 // IMPORTS
 // =======================================================
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import background from '../../assets/images/background/background.png'
 import logo from '../../assets/images/selecao/logo.png'
@@ -10,6 +10,7 @@ import hinos from '../../data/hinos'
 import CardHino from '../../components/CardHino/CardHino'
 import BottomSheet from '../../components/BottomSheet/BottomSheet'
 import type { HinoSelecionado } from '../../types/HinoSelecionado'
+import FloatingSelection from '../../components/FloatingSelection/FloatingSelection'
 
 import './selecao.css'
 
@@ -29,8 +30,34 @@ function Selecao() {
     const [hinoSelecionado, setHinoSelecionado] = useState<
        typeof hinos[number] | null
     >(null)
-      const [hinosSelecionados, setHinosSelecionados] = useState<HinoSelecionado[]>([])
-    
+    const [hinosSelecionados, setHinosSelecionados] = useState<HinoSelecionado[]>([])
+    const [floatingExpandido, setFloatingExpandido] = useState(false)
+    const floatingSelectionTimer = useRef<number | null>(null)
+
+    // =======================================================
+    // EFEITOS
+    // =======================================================
+
+    useEffect(() => {
+        if (!floatingExpandido) {
+            return
+        }
+
+        if (floatingSelectionTimer.current) {
+            clearTimeout(floatingSelectionTimer.current)
+        }
+
+        floatingSelectionTimer.current = window.setTimeout(() => {
+            setFloatingExpandido(false)
+        }, 3000)
+
+        return () => {
+            if (floatingSelectionTimer.current) {
+                clearTimeout(floatingSelectionTimer.current)
+            }
+        }
+    }, [floatingExpandido])
+
     // =======================================================
     // FUNÇÕES
     // =======================================================
@@ -46,29 +73,20 @@ function Selecao() {
 }
 
 function selecionarHino() {
-
     if (!hinoSelecionado) return
 
     setHinosSelecionados((lista) => [
-
         ...lista,
-
         {
-
             id: hinoSelecionado.id,
-
             nome: hinoSelecionado.nome,
-
             autor: hinoSelecionado.autor,
-
-            versao: hinoSelecionado.versoes[0].nome
-
-        }
-
+            versao: hinoSelecionado.versoes[0]?.nome ?? 'Original',
+        },
     ])
 
     setBottomSheetAberto(false)
-
+    setFloatingExpandido(true)
 }
         
     // =======================================================
@@ -155,28 +173,29 @@ function selecionarHino() {
                         aberto={bottomSheetAberto}
                         hino={hinoSelecionado}
                         onSelecionar={selecionarHino}
-                        onFechar={() => setBottomSheetAberto(false)}
+                        onFechar={() => {
+                            setBottomSheetAberto(false)
+                            setHinoSelecionado(null)
+                        }}
                     />
 
 {
 
     hinosSelecionados.length > 0 && (
 
-        <div className="barra-selecao">
+        <FloatingSelection
 
-            <span>
+    quantidade={hinosSelecionados.length}
 
-                🎵 {hinosSelecionados.length} hino{hinosSelecionados.length > 1 ? 's' : ''} selecionado{hinosSelecionados.length > 1 ? 's' : ''}
+    expandido={floatingExpandido}
 
-            </span>
+    onAbrirSelecao={() => {
 
-            <button>
+        console.log('Abrir seleção')
 
-                Ver seleção →
+    }}
 
-            </button>
-
-        </div>
+/>
 
     )
 

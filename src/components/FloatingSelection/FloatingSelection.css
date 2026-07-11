@@ -1,0 +1,273 @@
+/* =======================================================
+   FLOATING SELECTION
+======================================================= */
+
+.floating-selection{
+
+    position:fixed;
+
+    right:20px;
+
+    bottom:calc(24px + env(safe-area-inset-bottom));
+
+    z-index:999;
+
+    display:flex;
+
+    align-items:center;
+
+    border:none;
+
+    background:transparent;
+
+    padding:0;
+
+    cursor:pointer;
+
+}
+
+/* =======================================================
+   ÍCONE
+======================================================= */
+
+.floating-icon{
+
+    position:relative;
+
+    width:64px;
+
+    height:64px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-shrink:0;
+
+    z-index:2;
+
+    transition:
+        opacity .35s ease,
+        background-color .35s ease,
+        box-shadow .35s ease,
+        transform .35s ease;
+
+}
+
+.icone{
+
+    width:26px;
+
+    height:26px;
+
+    color:var(--white-soft);
+
+    transition:transform .35s ease;
+
+}
+
+.contador{
+
+    position:absolute;
+
+    top:-5px;
+
+    right:-5px;
+
+    min-width:22px;
+
+    height:22px;
+
+    padding:0 6px;
+
+    border-radius:999px;
+
+    background:#E9E2D7;
+
+    color:var(--primary-red);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:11px;
+
+    font-weight:bold;
+
+}
+
+/* =======================================================
+   ESTADO ATIVO
+======================================================= */
+
+.floating-icon.ativo{
+
+    opacity:1;
+
+    background:var(--primary-red);
+
+    box-shadow:0 10px 28px rgba(0,0,0,.20);
+
+}
+
+/* =======================================================
+   ESTADO INATIVO
+======================================================= */
+
+.floating-icon.inativo{
+
+    opacity:.1;
+
+    background:var(--primary-red);
+
+    box-shadow:0 5px 16px rgba(0,0,0,.12);
+
+}
+
+/* =======================================================
+   PAINEL
+======================================================= */
+
+.floating-panel{
+
+    margin-right:-16px;
+
+    overflow:hidden;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#ffffff;
+
+    border-radius:18px 0 0 18px;
+
+    box-shadow:0 10px 28px rgba(0,0,0,.18);
+
+    transform-origin:right center;
+
+    transition:
+
+        transform .45s cubic-bezier(.22,.61,.36,1),
+
+        opacity .20s ease;
+
+}
+
+/* =======================================================
+   EXPANDIDO
+======================================================= */
+
+.floating-panel.expandido{
+
+    width:285px;
+
+    padding:18px 22px 18px 34px;
+
+    transform:scaleX(1);
+
+    opacity:1;
+
+}
+
+/* =======================================================
+   RECOLHIDO
+======================================================= */
+
+.floating-panel.recolhido{
+
+    width:285px;
+
+    padding:18px 22px 18px 34px;
+
+    transform:scaleX(0);
+
+    opacity:0;
+
+    pointer-events:none;
+
+}
+
+/* =======================================================
+   CONTEÚDO
+======================================================= */
+
+.floating-content{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    gap:4px;
+
+    white-space:nowrap;
+
+    transition:
+
+        opacity .20s ease,
+
+        transform .20s ease;
+
+}
+
+.floating-panel.expandido .floating-content{
+
+    opacity:1;
+
+    transform:translateX(0);
+
+    transition-delay:.15s;
+
+}
+
+.floating-panel.recolhido .floating-content{
+
+    opacity:0;
+
+    transform:translateX(18px);
+
+}
+
+/* =======================================================
+   TEXTOS
+======================================================= */
+
+.floating-texto{
+
+    font-size:15px;
+
+    font-weight:600;
+
+    color:#222;
+
+}
+
+.floating-link{
+
+    font-size:13px;
+
+    font-weight:600;
+
+    color:var(--primary-red);
+
+}
+
+/* =======================================================
+   HOVER
+======================================================= */
+
+.floating-selection:hover .icone{
+
+    transform:scale(1.08);
+
+}
