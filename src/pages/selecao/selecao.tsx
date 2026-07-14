@@ -11,6 +11,7 @@ import CardHino from '../../components/CardHino/CardHino'
 import BottomSheet from '../../components/BottomSheet/BottomSheet'
 import type { HinoSelecionado } from '../../types/HinoSelecionado'
 import FloatingSelection from '../../components/FloatingSelection/FloatingSelection'
+import SelectionSheet from '../../components/selectionsheet/selectionsheet'
 
 import './selecao.css'
 
@@ -30,9 +31,12 @@ function Selecao() {
     const [hinoSelecionado, setHinoSelecionado] = useState<
        typeof hinos[number] | null
     >(null)
+     const [bottomSheetModo, setBottomSheetModo] = useState<'add' | 'edit'>('add')
+     const [editingSelectedId, setEditingSelectedId] = useState<number | null>(null)
     const [hinosSelecionados, setHinosSelecionados] = useState<HinoSelecionado[]>([])
     const [floatingExpandido, setFloatingExpandido] = useState(false)
     const floatingSelectionTimer = useRef<number | null>(null)
+    const [selectionSheetAberto, setSelectionSheetAberto] = useState(false)
 
     // =======================================================
     // EFEITOS
@@ -72,21 +76,45 @@ function Selecao() {
 
 }
 
-function selecionarHino() {
+function selecionarHino(versao: string) {
     if (!hinoSelecionado) return
+    if (bottomSheetModo === 'add') {
+        setHinosSelecionados((lista) => [
+            ...lista,
+            {
+                id: hinoSelecionado.id,
+                nome: hinoSelecionado.nome,
+                autor: hinoSelecionado.autor,
+                versao,
+            },
+        ])
 
-    setHinosSelecionados((lista) => [
-        ...lista,
-        {
-            id: hinoSelecionado.id,
-            nome: hinoSelecionado.nome,
-            autor: hinoSelecionado.autor,
-            versao: hinoSelecionado.versoes[0]?.nome ?? 'Original',
-        },
-    ])
+        setBottomSheetAberto(false)
+        setFloatingExpandido(true)
+    } else {
+        // edit mode: update versão do hino selecionado na lista
+        if (editingSelectedId == null) return
 
-    setBottomSheetAberto(false)
-    setFloatingExpandido(true)
+        setHinosSelecionados((lista) =>
+            lista.map((item) =>
+                item.id === editingSelectedId ? { ...item, versao } : item
+            )
+        )
+
+        setBottomSheetAberto(false)
+        setEditingSelectedId(null)
+        setBottomSheetModo('add')
+    }
+}
+
+function trocarVersao(id: number) {
+    const original = hinos.find((h) => h.id === id)
+    if (!original) return
+
+    setEditingSelectedId(id)
+    setHinoSelecionado(original)
+    setBottomSheetModo('edit')
+    setBottomSheetAberto(true)
 }
         
     // =======================================================
@@ -155,6 +183,8 @@ function selecionarHino() {
                                 onClick={() => {
 
                                     setHinoSelecionado(hino)
+                                    setBottomSheetModo('add')
+                                    setEditingSelectedId(null)
 
                                    setBottomSheetAberto(true)
 
@@ -172,10 +202,13 @@ function selecionarHino() {
                     <BottomSheet
                         aberto={bottomSheetAberto}
                         hino={hinoSelecionado}
+                        modo={bottomSheetModo}
                         onSelecionar={selecionarHino}
                         onFechar={() => {
                             setBottomSheetAberto(false)
                             setHinoSelecionado(null)
+                            setEditingSelectedId(null)
+                            setBottomSheetModo('add')
                         }}
                     />
 
@@ -191,15 +224,65 @@ function selecionarHino() {
 
     onAbrirSelecao={() => {
 
-        console.log('Abrir seleção')
+    setSelectionSheetAberto(true)
 
-    }}
+}}
 
 />
 
     )
 
 }
+
+<SelectionSheet
+
+    aberto={selectionSheetAberto}
+
+    hinos={hinosSelecionados}
+
+    actions={{
+
+        onFechar: () => {
+
+            setSelectionSheetAberto(false)
+
+        },
+
+        onConcluir: () => {
+
+            console.log('Concluir seleção')
+
+        }
+
+    }}
+
+    cardActions={{
+
+        onTrocarVersao: (id: number) => {
+            trocarVersao(id)
+        },
+
+        onRemover: (id: number) => {
+
+            setHinosSelecionados((lista) => {
+
+                const novaLista = lista.filter((hino) => hino.id !== id)
+
+                if (novaLista.length === 0) {
+
+                    setSelectionSheetAberto(false)
+
+                }
+
+                return novaLista
+
+            })
+
+        }
+
+    }}
+
+/> 
 
           </main>
 

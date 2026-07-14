@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import background from '../../assets/images/background/background.png'
@@ -24,27 +24,7 @@ function Identificacao() {
   
   const navigate = useNavigate()
 
-useEffect(() => {
-
-  if (
-    primeiroNome.trim() !== '' &&
-    sobrenome.trim() !== '' &&
-    cargo !== '' &&
-    congregacao !== '' &&
-    culto !== ''
-  ) {
-
-    setMensagemErro('')
-
-  }
-
-}, [
-  primeiroNome,
-  sobrenome,
-  cargo,
-  congregacao,
-  culto
-])
+// Limpando mensagem de erro diretamente nos handlers de input
 
 function continuar() {
 
@@ -122,6 +102,7 @@ navigate('/selecao')
 
   if (e.target.value.trim() !== '') {
     setErroPrimeiroNome(false)
+    if (mensagemErro !== '') setMensagemErro('')
   }
 
 }}
@@ -146,6 +127,7 @@ navigate('/selecao')
 
   if (e.target.value.trim() !== '') {
     setErroSobrenome(false)
+    if (mensagemErro !== '') setMensagemErro('')
   }
 
 }}
@@ -168,6 +150,7 @@ navigate('/selecao')
 
   if (e.target.value !== '') {
     setErroCargo(false)
+    if (mensagemErro !== '') setMensagemErro('')
   }
 
 }}
@@ -199,6 +182,7 @@ navigate('/selecao')
 
   if (e.target.value !== '') {
     setErroCongregacao(false)
+    if (mensagemErro !== '') setMensagemErro('')
   }
 
 }}
@@ -226,6 +210,7 @@ navigate('/selecao')
 
   if (e.target.value !== '') {
     setErroCulto(false)
+    if (mensagemErro !== '') setMensagemErro('')
   }
   
 }}

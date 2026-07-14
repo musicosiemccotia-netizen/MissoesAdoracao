@@ -1,0 +1,129 @@
+/* =======================================================
+   CARD
+======================================================= */
+
+.selectioncard{
+
+    background:#fafafa;
+
+    border:1px solid #ececec;
+
+    border-radius:16px;
+
+    padding:18px;
+
+    margin-bottom:16px;
+
+}
+
+/* =======================================================
+   TÍTULO
+======================================================= */
+
+.selectioncard h3{
+
+    margin:0;
+
+    color:#222;
+
+    font-size:17px;
+
+}
+
+/* =======================================================
+   LABEL
+======================================================= */
+
+.selectioncard-label{
+
+    margin:16px 0 8px;
+
+    font-size:13px;
+
+    color:#888;
+
+}
+
+/* =======================================================
+   VERSÃO
+======================================================= */
+
+.selectioncard-version{
+
+    border:none;
+
+    border-radius:999px;
+
+    background:#f3f3f3;
+
+    color:var(--primary-red);
+
+    padding:10px 16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+}
+
+/* =======================================================
+   AUTOR
+======================================================= */
+
+.selectioncard-author{
+
+    margin:6px 0 16px;
+
+    font-size:14px;
+
+    color:#777;
+
+}
+
+/* =======================================================
+   REMOVER
+======================================================= */
+
+.selectioncard{
+
+    position:relative;
+
+}
+
+.selectioncard-remove{
+
+    position:absolute;
+
+    top:14px;
+
+    right:16px;
+
+    width:28px;
+
+    height:28px;
+
+    border:none;
+
+    background:transparent;
+
+    color:#999;
+
+    font-size:24px;
+
+    font-weight:300;
+
+    line-height:1;
+
+    cursor:pointer;
+
+    transition:.20s;
+
+}
+
+.selectioncard-remove:hover{
+
+    color:var(--primary-red);
+
+    transform:scale(1.08);
+
+}

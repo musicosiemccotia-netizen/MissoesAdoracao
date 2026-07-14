@@ -2,23 +2,33 @@ import './BottomSheet.css'
 
 import hinos from '../../data/hinos'
 
+// =======================================================
+// TIPAGEM
+// =======================================================
+
 type Props = {
 
     aberto: boolean
 
     hino: typeof hinos[number] | null
 
-    onSelecionar: () => void
+    modo: 'add' | 'edit'
+
+    onSelecionar: (versao: string) => void
 
     onFechar: () => void
 
 }
+
+
 
 function BottomSheet({
 
     aberto,
 
     hino,
+
+    modo,
 
     onSelecionar,
 
@@ -68,13 +78,26 @@ function BottomSheet({
                 </span>
 
                 <button
-                    className="botao-adicionar"
-                    onClick={onSelecionar}
-                >
 
-                    +
+    type="button"
 
-                </button>
+    className="botao-adicionar"
+
+    onClick={() => onSelecionar(versao.nome)}
+
+>
+
+    {
+
+        modo === 'add'
+
+            ? '+'
+
+            : 'Selecionar'
+
+    }
+
+</button>
 
             </div>
 

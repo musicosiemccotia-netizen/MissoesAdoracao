@@ -1,0 +1,205 @@
+/* =======================================================
+   OVERLAY
+======================================================= */
+
+.selectionsheet-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:flex-end;
+
+    z-index:1000;
+
+}
+
+/* =======================================================
+   PAINEL
+======================================================= */
+
+.selectionsheet{
+
+    width:100%;
+
+    max-width:600px;
+
+    height:75vh;
+
+    background:#ffffff;
+
+    border-radius:28px 28px 0 0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    animation:subir .25s ease;
+
+}
+
+/* =======================================================
+   HANDLE
+======================================================= */
+
+.selectionsheet-handle{
+
+    width:52px;
+
+    height:6px;
+
+    background:#d5d5d5;
+
+    border-radius:999px;
+
+    margin:14px auto 20px;
+
+}
+
+/* =======================================================
+   CABEÇALHO
+======================================================= */
+
+.selectionsheet h2{
+
+    text-align:center;
+
+    font-size:24px;
+
+    color:#222;
+
+    margin:0;
+
+}
+
+.selectionsheet > p{
+
+    text-align:center;
+
+    color:#777;
+
+    margin:8px 0 24px;
+
+}
+
+/* =======================================================
+   LISTA
+======================================================= */
+
+.selectionsheet-lista{
+
+    flex:1;
+
+    overflow-y:auto;
+
+    padding:0 20px;
+
+}
+
+/* =======================================================
+   CARD
+======================================================= */
+
+.selectionsheet-card{
+
+    background:#fafafa;
+
+    border:1px solid #ececec;
+
+    border-radius:16px;
+
+    padding:18px;
+
+    margin-bottom:16px;
+
+}
+
+.selectionsheet-card h3{
+
+    margin:0;
+
+    font-size:17px;
+
+    color:#222;
+
+}
+
+.selectionsheet-versao{
+
+    display:inline-block;
+
+    margin-top:12px;
+
+    padding:8px 14px;
+
+    border-radius:999px;
+
+    background:#f3f3f3;
+
+    color:var(--primary-red);
+
+    font-weight:600;
+
+    font-size:14px;
+
+}
+
+/* =======================================================
+   BOTÃO
+======================================================= */
+
+.selectionsheet-concluir{
+
+    margin:20px;
+
+    height:54px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:var(--primary-red);
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.selectionsheet-concluir:hover{
+
+    opacity:.92;
+
+}
+
+/* =======================================================
+   ANIMAÇÃO
+======================================================= */
+
+@keyframes subir{
+
+    from{
+
+        transform:translateY(100%);
+
+    }
+
+    to{
+
+        transform:translateY(0);
+
+    }
+
+}
