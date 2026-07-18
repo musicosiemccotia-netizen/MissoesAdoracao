@@ -15,8 +15,6 @@ import SelectionSheet from '../../components/selectionsheet/selectionsheet'
 import generateId from '../../utils/generateid'
 import { useNavigate } from 'react-router-dom'
 import { salvarSelecao } from '../../utils/storage'
-import { useContext } from 'react'
-import { identificacaocontext } from '../../contexts/identificacao/identificacaocontext'
 
 import './selecao.css'
 
@@ -44,7 +42,6 @@ function Selecao() {
     const floatingSelectionTimer = useRef<number | null>(null)
     const [selectionSheetAberto, setSelectionSheetAberto] = useState(false)
     const navigate = useNavigate()
-    const { identificacao } = useContext(identificacaocontext)
 
     // =======================================================
     // EFEITOS
