@@ -46,13 +46,24 @@ function BottomSheet({
     >
 
       <div
-        className="bottom-sheet"
-        onClick={(e) => e.stopPropagation()}
-      >
+    className="bottom-sheet"
+    onClick={(e) => e.stopPropagation()}
+>
 
-        <h2>{hino?.nome}</h2>
+    <div className="bottomsheet-handle"></div>
 
-        <p>{hino?.autor}</p>
+    <button
+        type="button"
+        className="bottomsheet-close"
+        onClick={onFechar}
+        aria-label="Fechar"
+    >
+        ✕
+    </button>
+
+    <h2>{hino?.nome}</h2>
+
+    <p>{hino?.autor}</p>
 
         <h3 className="titulo-versoes">
 

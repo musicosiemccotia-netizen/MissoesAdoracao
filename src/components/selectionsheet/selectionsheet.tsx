@@ -2,13 +2,16 @@
     // IMPORTS
     // =======================================================
 
+    import { useState } from 'react'
+
     import './selectionsheet.css'
 
     import type { HinoSelecionado } from '../../types/HinoSelecionado'
     import type { SelectionSheetActions } from '../../types/selectionsheetactions'
-import type { SelectionCardActions } from '../../types/selectioncardactions'
+    import type { SelectionCardActions } from '../../types/selectioncardactions'
 
-import SelectionCard from '../selectioncard/selectioncard'
+    import SelectionCard from '../selectioncard/selectioncard'
+    import VersionSelector from '../versionselector/versionselector'
 
 // =======================================================
 // PROPRIEDADES
@@ -42,7 +45,9 @@ function SelectionSheet({
 
 }: SelectionSheetProps) {
 
-        if (!aberto) return null
+    const [openedItemId, setOpenedItemId] = useState<string | null>(null)    
+    
+    if (!aberto) return null
 
         return (
 
@@ -58,11 +63,18 @@ function SelectionSheet({
 
                     <div className="selectionsheet-handle"></div>
 
-                    <h2>
+<button
+    type="button"
+    className="selectionsheet-close"
+    onClick={actions.onFechar}
+    aria-label="Fechar"
+>
+    ✕
+</button>
 
-                        Minha Seleção
-
-                    </h2>
+<h2>
+    Minha Seleção
+</h2>
 
                     <p>
 
@@ -76,16 +88,78 @@ function SelectionSheet({
 
                             hinos.map((hino) => (
 
-                                <SelectionCard
+    <div
+        key={hino.itemId}
+        className="selectionsheet-item"
+    >
 
-                                    key={hino.id}
+<SelectionCard
 
-                                    hino={hino}
+    hino={hino}
 
-                                    actions={cardActions}
+    expanded={openedItemId === hino.itemId}
 
-                                />
-                            ))
+    actions={{
+
+        ...cardActions,
+
+        onTrocarVersao: () => {
+
+            setOpenedItemId(
+
+                openedItemId === hino.itemId
+
+                    ? null
+
+                    : hino.itemId
+
+            )
+
+        }
+
+    }}
+
+>
+
+    <VersionSelector
+
+        aberto={openedItemId === hino.itemId}
+
+        versoes={hino.versoes}
+
+        versaoAtual={hino.versao.nome}
+
+        onSelecionar={(versao) => {
+
+    cardActions.onSelecionarVersao(
+
+        hino.itemId,
+
+        versao
+
+    )
+
+    setOpenedItemId(null)
+
+}}
+
+        onVerTodas={() => {
+
+    setOpenedItemId(null)
+
+    actions.onFechar()
+
+    cardActions.onTrocarVersao(hino.itemId)
+
+}}
+
+    />
+
+</SelectionCard>
+
+    </div>
+
+))
 
                         }
 

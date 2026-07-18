@@ -16,6 +16,8 @@ type FloatingSelectionProps = {
 
     expandido: boolean
 
+    mensagem?: string
+
     onAbrirSelecao: () => void
 
 }
@@ -29,6 +31,8 @@ function FloatingSelection({
     quantidade,
 
     expandido,
+
+    mensagem,
 
     onAbrirSelecao
 
@@ -49,7 +53,10 @@ return (
 
                 <span className="floating-texto">
 
-                    🎵 {quantidade} hino{quantidade > 1 ? 's' : ''} selecionado{quantidade > 1 ? 's' : ''}
+                    {mensagem
+                        ? mensagem
+                        : `🎵 ${quantidade} hino${quantidade > 1 ? 's' : ''} selecionado${quantidade > 1 ? 's' : ''}`
+                    }
 
                 </span>
 

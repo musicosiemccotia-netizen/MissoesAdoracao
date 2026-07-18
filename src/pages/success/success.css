@@ -1,0 +1,113 @@
+.success {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    padding: 24px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #fff;
+}
+
+.success-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 0;
+}
+
+.success-logo,
+.success-icon,
+.success h1,
+.success p,
+.success-slogan,
+.success-button {
+    position: relative;
+    z-index: 1;
+}
+
+.success-logo {
+    width: 140px;
+    margin-bottom: 24px;
+}
+
+.success-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: #2e7d32;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 34px;
+    font-weight: bold;
+}
+
+.success h1 {
+    color: #fff;
+    font-size: 2.2rem;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.success p {
+    color: #f5f5f5;
+    line-height: 1.6;
+    margin-bottom: 14px;
+    text-align: center;
+    max-width: 340px;
+    font-size: 1rem;
+}
+
+.success-slogan {
+    margin: 34px 0;
+    opacity: .9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: #f5f5f5;
+    font-style: italic;
+    font-size: .95rem;
+}
+
+.success-button {
+    width: 100%;
+    max-width: 280px;
+    height: 48px;
+    border: none;
+    border-radius: 12px;
+    background: #a12323;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 8px;
+    font-weight: 600;
+}
+
+.success-content {
+
+    position: relative;
+
+    z-index: 1;
+
+    width: 100%;
+
+    max-width: 420px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    transform: translateY(-70px);
+
+}

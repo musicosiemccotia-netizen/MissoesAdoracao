@@ -8,18 +8,14 @@ import hinos from '../data/hinos'
 // TIPO
 // =======================================================
 
-export type HinoSelecionado = {
+export type BottomSheetContext = {
 
-    itemId: string
+    aberto: boolean
 
-    hinoId: number
+    tipo: 'add' | 'edit'
 
-    nome: string
+    hino: typeof hinos[number] | null
 
-    autor: string
-
-    versao: typeof hinos[number]['versoes'][number]
-
-    versoes: typeof hinos[number]['versoes']
+    hinoSelecionadoId?: number
 
 }

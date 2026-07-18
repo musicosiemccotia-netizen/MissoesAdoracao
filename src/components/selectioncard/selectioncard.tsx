@@ -17,6 +17,10 @@ type SelectionCardProps = {
 
     actions: SelectionCardActions
 
+    expanded: boolean
+
+    children?: React.ReactNode
+
 }
 
 // =======================================================
@@ -27,7 +31,11 @@ function SelectionCard({
 
     hino,
 
-    actions
+    actions,
+
+    expanded,
+
+    children
 
 }: SelectionCardProps) {
 
@@ -53,7 +61,7 @@ function SelectionCard({
 
     className="selectioncard-remove"
 
-    onClick={() => actions.onRemover(hino.id)}
+    onClick={() => actions.onRemover(hino.itemId)}
 
 >
 
@@ -73,13 +81,24 @@ function SelectionCard({
 
     className="selectioncard-version"
 
-    onClick={() => actions.onTrocarVersao(hino.id)}
+    onClick={() => actions.onTrocarVersao(hino.itemId)}
 
 >
 
-                {hino.versao} ▼
+                {hino.versao.nome} ▼
 
             </button>
+
+            <div
+    className={
+        expanded
+            ? 'selectioncard-dropdown open'
+            : 'selectioncard-dropdown'
+    }
+>
+    {children}
+
+</div>
 
         </div>
 

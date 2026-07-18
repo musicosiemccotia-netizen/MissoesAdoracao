@@ -4,8 +4,10 @@
 
 export type SelectionCardActions = {
 
-    onTrocarVersao: (id: number) => void
+    onTrocarVersao: (itemId: string) => void
 
-    onRemover: (id: number) => void
+    onSelecionarVersao: (itemId: string, versao: string) => void
+
+    onRemover: (itemId: string) => void
 
 }

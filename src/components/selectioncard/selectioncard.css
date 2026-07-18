@@ -127,3 +127,34 @@
     transform:scale(1.08);
 
 }
+
+/* =======================================================
+   DROPDOWN
+======================================================= */
+
+.selectioncard-dropdown{
+
+    overflow:hidden;
+
+    max-height:0;
+
+    opacity:0;
+
+    transform:translateY(-8px);
+
+    transition:
+        max-height .25s ease,
+        opacity .20s ease,
+        transform .25s ease;
+
+}
+
+.selectioncard-dropdown.open{
+
+    max-height:300px;
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}

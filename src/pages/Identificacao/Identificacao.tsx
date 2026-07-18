@@ -1,9 +1,15 @@
 import { useState } from 'react'
+import { useContext } from 'react'
+
 import { useNavigate } from 'react-router-dom'
 
 import background from '../../assets/images/background/background.png'
 import logo from '../../assets/images/identificacao/logo.png'
 import botaoContinuar from '../../assets/images/identificacao/botao-continuar.png'
+
+
+
+import { identificacaocontext } from '../../contexts/identificacao/identificacaocontext'
 
 import './Identificacao.css'
 
@@ -23,6 +29,7 @@ function Identificacao() {
   const [erroCulto, setErroCulto] = useState(false)
   
   const navigate = useNavigate()
+  const { setidentificacao } = useContext(identificacaocontext)
 
 // Limpando mensagem de erro diretamente nos handlers de input
 
@@ -58,7 +65,16 @@ function continuar() {
 
   setMensagemErro('')
 
+setidentificacao({
+  primeiroNome,
+  sobrenome,
+  cargo,
+  congregacao,
+  culto
+})
+
 navigate('/selecao')
+
 }
 
   return (

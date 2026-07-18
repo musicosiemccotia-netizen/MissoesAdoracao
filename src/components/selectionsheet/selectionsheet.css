@@ -34,6 +34,8 @@
 
     background:#ffffff;
 
+    position: relative;
+
     border-radius:28px 28px 0 0;
 
     display:flex;
@@ -201,5 +203,37 @@
         transform:translateY(0);
 
     }
+
+}
+
+.selectionsheet-close{
+
+    position: absolute;
+
+    top: 14px;
+
+    right: 16px;
+
+    width: 32px;
+
+    height: 32px;
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 22px;
+
+    cursor: pointer;
+
+    color: #666;
+
+    transition: color .2s;
+
+}
+
+.selectionsheet-close:hover{
+
+    color: #111;
 
 }

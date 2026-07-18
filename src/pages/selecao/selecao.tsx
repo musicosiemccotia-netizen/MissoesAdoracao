@@ -12,6 +12,11 @@ import BottomSheet from '../../components/BottomSheet/BottomSheet'
 import type { HinoSelecionado } from '../../types/HinoSelecionado'
 import FloatingSelection from '../../components/FloatingSelection/FloatingSelection'
 import SelectionSheet from '../../components/selectionsheet/selectionsheet'
+import generateId from '../../utils/generateid'
+import { useNavigate } from 'react-router-dom'
+import { salvarSelecao } from '../../utils/storage'
+import { useContext } from 'react'
+import { identificacaocontext } from '../../contexts/identificacao/identificacaocontext'
 
 import './selecao.css'
 
@@ -21,9 +26,9 @@ import './selecao.css'
 
 function Selecao() {
 
-    // =======================================================
-    // ESTADOS
-    // =======================================================
+// =======================================================
+// ESTADOS
+// =======================================================
 
     const [pesquisa, setPesquisa] = useState('')
     const [pesquisando, setPesquisando] = useState(false)
@@ -31,12 +36,15 @@ function Selecao() {
     const [hinoSelecionado, setHinoSelecionado] = useState<
        typeof hinos[number] | null
     >(null)
-     const [bottomSheetModo, setBottomSheetModo] = useState<'add' | 'edit'>('add')
-     const [editingSelectedId, setEditingSelectedId] = useState<number | null>(null)
+    const [bottomSheetModo, setBottomSheetModo] = useState<'add' | 'edit'>('add')
+    const [editingItemId, setEditingItemId] = useState<string | null>(null)
     const [hinosSelecionados, setHinosSelecionados] = useState<HinoSelecionado[]>([])
     const [floatingExpandido, setFloatingExpandido] = useState(false)
+    const [floatingMensagem, setFloatingMensagem] = useState<string | undefined>(undefined)
     const floatingSelectionTimer = useRef<number | null>(null)
     const [selectionSheetAberto, setSelectionSheetAberto] = useState(false)
+    const navigate = useNavigate()
+    const { identificacao } = useContext(identificacaocontext)
 
     // =======================================================
     // EFEITOS
@@ -76,43 +84,92 @@ function Selecao() {
 
 }
 
+function fecharBottomSheet() {
+    setBottomSheetAberto(false)
+    setHinoSelecionado(null)
+    setEditingItemId(null)
+    setBottomSheetModo('add')
+}
+
 function selecionarHino(versao: string) {
     if (!hinoSelecionado) return
+
     if (bottomSheetModo === 'add') {
         setHinosSelecionados((lista) => [
             ...lista,
             {
-                id: hinoSelecionado.id,
+                itemId: generateId(),
+
+                hinoId: hinoSelecionado.id,
+
                 nome: hinoSelecionado.nome,
+
                 autor: hinoSelecionado.autor,
-                versao,
+
+                versao:
+
+                    hinoSelecionado.versoes.find(
+
+                        (item) => item.nome === versao
+
+                    )!,
+
+                versoes: hinoSelecionado.versoes,
+
             },
         ])
 
-        setBottomSheetAberto(false)
+        setFloatingMensagem('Hino adicionado')
         setFloatingExpandido(true)
+        fecharBottomSheet()
     } else {
-        // edit mode: update versão do hino selecionado na lista
-        if (editingSelectedId == null) return
+
+        if (editingItemId == null) return
 
         setHinosSelecionados((lista) =>
-            lista.map((item) =>
-                item.id === editingSelectedId ? { ...item, versao } : item
-            )
+    lista.map((item) => {
+
+        if (item.itemId !== editingItemId) {
+
+            return item
+
+        }
+
+        const versaoSelecionada = item.versoes.find(
+            (versaoItem) => versaoItem.nome === versao
         )
 
-        setBottomSheetAberto(false)
-        setEditingSelectedId(null)
-        setBottomSheetModo('add')
+        if (!versaoSelecionada) {
+            return item
+        }
+
+        return {
+            ...item,
+            versao: versaoSelecionada
+        }
+
+    })
+)
+
+        fecharBottomSheet()
+
+        setFloatingMensagem('Versão atualizada')
+        setFloatingExpandido(true)
+
     }
 }
 
-function trocarVersao(id: number) {
-    const original = hinos.find((h) => h.id === id)
-    if (!original) return
+function trocarVersao(itemId: string) {
+    const itemSelecionado = hinosSelecionados.find((item) => item.itemId === itemId)
 
-    setEditingSelectedId(id)
-    setHinoSelecionado(original)
+    if (!itemSelecionado) return
+
+    const hinoOriginal = hinos.find((h) => h.id === itemSelecionado.hinoId)
+
+    if (!hinoOriginal) return
+
+    setEditingItemId(itemId)
+    setHinoSelecionado(hinoOriginal)
     setBottomSheetModo('edit')
     setBottomSheetAberto(true)
 }
@@ -184,7 +241,7 @@ function trocarVersao(id: number) {
 
                                     setHinoSelecionado(hino)
                                     setBottomSheetModo('add')
-                                    setEditingSelectedId(null)
+                                    setEditingItemId(null)
 
                                    setBottomSheetAberto(true)
 
@@ -204,12 +261,7 @@ function trocarVersao(id: number) {
                         hino={hinoSelecionado}
                         modo={bottomSheetModo}
                         onSelecionar={selecionarHino}
-                        onFechar={() => {
-                            setBottomSheetAberto(false)
-                            setHinoSelecionado(null)
-                            setEditingSelectedId(null)
-                            setBottomSheetModo('add')
-                        }}
+                        onFechar={fecharBottomSheet}
                     />
 
 {
@@ -217,6 +269,8 @@ function trocarVersao(id: number) {
     hinosSelecionados.length > 0 && (
 
         <FloatingSelection
+
+            mensagem={floatingMensagem}
 
     quantidade={hinosSelecionados.length}
 
@@ -250,23 +304,66 @@ function trocarVersao(id: number) {
 
         onConcluir: () => {
 
-            console.log('Concluir seleção')
+    if (hinosSelecionados.length === 0) {
 
-        }
+        alert('Selecione pelo menos um hino.')
+
+        return
+
+    }
+
+    salvarSelecao({
+
+        data: new Date().toISOString(),
+
+        hinos: hinosSelecionados
+
+    })
+
+    navigate('/success')
+
+}
 
     }}
 
     cardActions={{
 
-        onTrocarVersao: (id: number) => {
-            trocarVersao(id)
+        onTrocarVersao: (itemId: string) => {
+            trocarVersao(itemId)
         },
 
-        onRemover: (id: number) => {
+        onSelecionarVersao: (itemId: string, versao: string) => {
+
+            setHinosSelecionados((lista) =>
+                lista.map((hino) => {
+                    if (hino.itemId !== itemId) {
+                        return hino
+                    }
+
+                    const versaoSelecionada = hino.versoes.find(
+                        (versaoItem) => versaoItem.nome === versao
+                    )
+
+                    if (!versaoSelecionada) {
+                        return hino
+                    }
+
+                    return {
+                        ...hino,
+                        versao: versaoSelecionada,
+                    }
+                })
+            )
+
+            setFloatingMensagem('Versão atualizada')
+            setFloatingExpandido(true)
+        },
+
+        onRemover: (itemId: string) => {
 
             setHinosSelecionados((lista) => {
 
-                const novaLista = lista.filter((hino) => hino.id !== id)
+                const novaLista = lista.filter((hino) => hino.itemId !== itemId)
 
                 if (novaLista.length === 0) {
 
