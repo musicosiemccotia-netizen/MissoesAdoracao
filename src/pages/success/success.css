@@ -111,3 +111,41 @@
     transform: translateY(-70px);
 
 }
+
+.success-download {
+
+    margin-top: 18px;
+
+    background: none;
+
+    border: none;
+
+    padding: 0;
+
+    color: rgba(255, 255, 255, 0.85);
+
+    font-size: 0.9rem;
+
+    font-style: italic;
+
+    cursor: pointer;
+
+    transition: color 0.2s ease;
+
+}
+
+.success-download:hover {
+
+    color: #ffffff;
+
+    text-decoration: underline;
+
+}
+
+.success-download:focus-visible {
+
+    outline: none;
+
+    text-decoration: underline;
+
+}

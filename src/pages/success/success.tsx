@@ -1,12 +1,35 @@
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useContext, useRef } from 'react'
+
 import fundo from '../../assets/images/background/background-com-barra.png'
 
 import './success.css'
+
+import { selectioncontext } from '../../contexts/selectioncontext/selectioncontext'
+import { identificacaocontext } from '../../contexts/identificacao/identificacaocontext'
+
+import ReceiptDownload, {
+    type ReceiptDownloadRef
+} from '../../components/receiptdownload/ReceiptDownload'
 
 function Success() {
 
     const navigate = useNavigate()
     
+const location = useLocation()
+
+const dataSelecao =
+    location.state?.dataSelecao as string | undefined
+
+console.log('location.state:', location.state)
+console.log('dataSelecao:', dataSelecao)
+
+const { identificacao } = useContext(identificacaocontext)
+
+const { hinosSelecionados } = useContext(selectioncontext)
+
+const receiptDownloadRef = useRef<ReceiptDownloadRef>(null)
+
     return (
 
         <div
@@ -49,7 +72,23 @@ function Success() {
             Voltar ao início
         </button>
 
+        <button
+    className="success-download"
+    onClick={async () => {
+        await receiptDownloadRef.current?.baixar()
+    }}
+>
+    📄 Baixar meu repertório
+</button>
+
     </div>
+
+<ReceiptDownload
+    ref={receiptDownloadRef}
+    identificacao={identificacao}
+    hinos={hinosSelecionados}
+    dataSelecao={dataSelecao}
+/>
 
 </div>
 

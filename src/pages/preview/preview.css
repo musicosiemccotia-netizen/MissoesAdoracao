@@ -1,0 +1,37 @@
+.preview{
+
+    min-height:100vh;
+
+    background:#ececec;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:40px;
+
+}
+
+.export-receipt{
+
+    position:fixed;
+
+    left:-99999px;
+
+    top:0;
+
+}
+
+.export-receipt {
+
+    position: fixed;
+
+    left: -10000px;
+
+    top: 0;
+
+    width: 900px;
+
+}

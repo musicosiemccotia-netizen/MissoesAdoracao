@@ -1,0 +1,319 @@
+.selection-receipt {
+
+    position: relative;
+
+    overflow: hidden;
+
+    width: 440px;
+
+    background: #fcfbf8;
+
+    border-radius: 22px;
+
+    padding: 38px;
+
+    box-sizing: border-box;
+
+    box-shadow: 0 10px 35px rgba(0,0,0,.08);
+
+}
+
+
+
+.receipt-info{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:34px;
+
+}
+
+.receipt-block{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+}
+
+.receipt-label{
+
+    font-size:13px;
+
+    font-weight:700;
+
+    letter-spacing:3px;
+
+    color:#8b8b8b;
+
+}
+
+.selection-receipt .receipt-name{
+
+    margin:0;
+
+    font-size:31px;
+
+    font-weight:700;
+
+    color:#232323;
+
+    line-height:1.2;
+
+    text-align: left;
+
+}
+
+.receipt-culto-value{
+    margin:0;
+    font-size:24px;
+    font-weight:600;
+    color:#232323;
+    line-height:1.15;
+}
+
+.receipt-culto-value br{
+    line-height:1;
+}
+
+.receipt-culto-complemento{
+
+    font-size:20px;
+
+    font-weight:600;
+
+}
+
+.receipt-date-label{
+
+    font-size:14px;
+
+    color:#666;
+
+}
+
+.selection-receipt .receipt-date{
+
+    margin:0;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    color:#232323;
+
+    text-align: left
+
+}
+
+.receipt-divider{
+
+    margin:42px 0;
+
+    height:2px;
+
+    background:#b71918;
+
+    border-radius:10px;
+
+}
+
+.receipt-title{
+
+    display:block;
+
+    margin-bottom:26px;
+
+    font-size:14px;
+
+    font-weight:700;
+
+    letter-spacing:3px;
+
+    color:#8b8b8b;
+
+}
+
+.receipt-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
+
+.receipt-song{
+
+    padding:18px;
+
+    border-radius:12px;
+
+    background:#fafafa;
+
+    border-left:5px solid #b71918;
+
+}
+
+.selection-receipt .receipt-song strong{
+
+    display:block;
+
+    font-size:18px;
+
+    color:#202020;
+
+}
+
+.selection-receipt .receipt-song p{
+
+    margin-top:6px;
+
+    color:#666;
+
+    font-size:14px;
+
+    text-align: left
+
+}
+
+.receipt-header{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    margin-bottom:40px;
+
+}
+
+.receipt-logo{
+
+    width:80px;
+
+    margin-bottom:18px;
+
+}
+
+.selection-receipt .receipt-app-name {
+
+    margin:0;
+
+    width:100%;
+
+    text-align:center;
+
+    font-size:24px;
+
+    font-weight:700;
+
+    color:#b71918;
+
+    letter-spacing:1px;
+
+}
+
+.selection-receipt .receipt-subtitle{
+
+    width:100%;
+
+    text-align:center;
+
+    margin-top:8px;
+
+    font-size:14px;
+
+    color:#777;
+
+}
+
+.receipt-header-divider{
+
+    width:100%;
+
+    height:2px;
+
+    background:#b71918;
+
+    margin-top:24px;
+
+    border-radius:999px;
+
+}
+
+.receipt-footer {
+
+    margin-top: 36px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #e5e5e5;
+
+    text-align: center;
+
+}
+
+.selection-receipt .receipt-footer-slogan {
+
+    margin: 0;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    letter-spacing: 1.5px;
+
+    color: #b71918;
+
+    text-transform: uppercase;
+
+}
+
+.selection-receipt .receipt-footer-site {
+
+    margin-top: 8px;
+
+    margin-bottom: 0;
+
+    font-size: 12px;
+
+    color: #888;
+
+}
+
+.selection-receipt-export{
+
+    width:900px;
+
+    border-radius:0;
+
+    box-shadow:none;
+
+}
+
+.receipt-row{
+    display: flex;
+    
+    gap: 40px;
+    
+    align-items: flex-start;
+}
+
+.receipt-row .receipt-block {
+
+    flex: 1;
+
+    min-width: 0;
+
+}

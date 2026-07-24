@@ -14,7 +14,11 @@ import FloatingSelection from '../../components/FloatingSelection/FloatingSelect
 import SelectionSheet from '../../components/selectionsheet/selectionsheet'
 import generateId from '../../utils/generateid'
 import { useNavigate } from 'react-router-dom'
-import { salvarSelecao } from '../../utils/storage'
+import { salvarSelecao } from '../../services/salvarselecao.service'
+
+import { useContext } from 'react'
+import { identificacaocontext } from '../../contexts/identificacao/identificacaocontext'
+import { selectioncontext } from '../../contexts/selectioncontext/selectioncontext'
 
 import './selecao.css'
 
@@ -36,12 +40,14 @@ function Selecao() {
     >(null)
     const [bottomSheetModo, setBottomSheetModo] = useState<'add' | 'edit'>('add')
     const [editingItemId, setEditingItemId] = useState<string | null>(null)
-    const [hinosSelecionados, setHinosSelecionados] = useState<HinoSelecionado[]>([])
+    const { hinosSelecionados, setHinosSelecionados } = useContext(selectioncontext)
     const [floatingExpandido, setFloatingExpandido] = useState(false)
     const [floatingMensagem, setFloatingMensagem] = useState<string | undefined>(undefined)
     const floatingSelectionTimer = useRef<number | null>(null)
     const [selectionSheetAberto, setSelectionSheetAberto] = useState(false)
     const navigate = useNavigate()
+    const { identificacao } = useContext(identificacaocontext)
+    
 
     // =======================================================
     // EFEITOS
@@ -299,7 +305,7 @@ function trocarVersao(itemId: string) {
 
         },
 
-        onConcluir: () => {
+        onConcluir: async () => {
 
     if (hinosSelecionados.length === 0) {
 
@@ -309,15 +315,45 @@ function trocarVersao(itemId: string) {
 
     }
 
-    salvarSelecao({
+    try {
 
-        data: new Date().toISOString(),
+       const resultado = await salvarSelecao({
 
-        hinos: hinosSelecionados
+    participante: {
 
-    })
+        primeiroNome: identificacao.primeiroNome,
 
-    navigate('/success')
+        sobrenome: identificacao.sobrenome,
+
+        cargo: identificacao.cargo,
+
+        congregacao: identificacao.congregacao
+
+    },
+
+    culto: identificacao.culto,
+
+    data: new Date().toISOString(),
+
+    hinos: hinosSelecionados
+
+})
+
+console.log('resultado:', resultado)
+
+navigate('/success', {
+    state: {
+        dataSelecao: resultado.dataSelecao
+    }
+})
+
+    } catch (error) {
+
+        console.error(error)
+
+        alert('Não foi possível salvar sua seleção. Tente novamente.')
+
+    }
 
 }
 

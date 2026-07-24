@@ -205,8 +205,8 @@ navigate('/selecao')
 >
   <option value="">Selecione...</option>
 
-  <option>Congregação Cotia</option>
-  <option>Sede Nacional</option>
+  <option value="Cotia">Cotia</option>
+  <option value="Sede Nacional">Sede Nacional</option>
 </select>
 
         </div>
