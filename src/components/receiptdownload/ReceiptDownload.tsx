@@ -5,7 +5,6 @@ import {
 } from 'react'
 
 import { toPng } from 'html-to-image'
-import { createPortal } from 'react-dom'
 
 import SelectionReceipt from '../selectionreceipt'
 
@@ -67,8 +66,6 @@ const ReceiptDownload = forwardRef<ReceiptDownloadRef, ReceiptDownloadProps>(({
     link.click()
 }
     }))
-
-console.log('ReceiptDownload:', dataSelecao)
 
 return (
     <div
