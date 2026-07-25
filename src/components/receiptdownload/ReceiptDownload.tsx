@@ -49,10 +49,12 @@ const ReceiptDownload = forwardRef<ReceiptDownloadRef, ReceiptDownloadProps>(({
 
     if (!receiptRef.current) return
 
+    await new Promise(resolve => setTimeout(resolve, 150))
+
     const dataUrl = await toPng(receiptRef.current, {
-        pixelRatio: 4,
-        cacheBust: true,
-        backgroundColor: '#fcfbf8'
+    pixelRatio: 4,
+    cacheBust: true,
+    backgroundColor: '#fcfbf8'
     })
 
     console.log(dataUrl)
