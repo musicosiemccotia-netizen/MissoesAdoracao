@@ -55,6 +55,8 @@ export async function salvarSelecao(
 
     )
 
+console.log('salvarSelecao:', selecao)
+
     return {
 
         dataSelecao: selecao.dataSelecao

@@ -32,14 +32,14 @@ const hinos: HinoSelecionado[] = [
     {
         itemId: '1',
 
-        hinoId: 1,
+        hinoId: '1',
 
         nome: 'Bondade de Deus',
 
         autor: 'Jenn Johnson',
 
         versao: {
-            id: 1,
+            id: '1',
             nome: 'Original',
             tom: 'G',
             bpm: 72,
@@ -47,24 +47,42 @@ const hinos: HinoSelecionado[] = [
             cifra: '',
             youtube: '',
             spotify: '',
-            deezer: ''
+            deezer: '',
+            audio: '',
+            appleMusic: '',
+            observacao: ''
         },
 
-        versoes: []
+        versoes: [
+            {
+                id: '1',
+                nome: 'Original',
+                tom: 'G',
+                bpm: 72,
+                letra: '',
+                cifra: '',
+                youtube: '',
+                spotify: '',
+                deezer: '',
+                audio: '',
+                appleMusic: '',
+                observacao: ''
+            }
+        ]
 
     },
 
     {
         itemId: '2',
 
-        hinoId: 2,
+        hinoId: '2',
 
         nome: 'Deus Proverá',
 
         autor: 'Gabriela Gomes',
 
         versao: {
-            id: 1,
+            id: '2',
             nome: 'Ao Vivo',
             tom: 'A',
             bpm: 74,
@@ -72,10 +90,28 @@ const hinos: HinoSelecionado[] = [
             cifra: '',
             youtube: '',
             spotify: '',
-            deezer: ''
+            deezer: '',
+            audio: '',
+            appleMusic: '',
+            observacao: ''
         },
 
-        versoes: []
+        versoes: [
+            {
+                id: '2',
+                nome: 'Ao Vivo',
+                tom: 'A',
+                bpm: 74,
+                letra: '',
+                cifra: '',
+                youtube: '',
+                spotify: '',
+                deezer: '',
+                audio: '',
+                appleMusic: '',
+                observacao: ''
+            }
+        ]
 
     }
 

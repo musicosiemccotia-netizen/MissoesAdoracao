@@ -1,25 +1,17 @@
-// =======================================================
-// IMPORTS
-// =======================================================
-
-import hinos from '../data/hinos'
-
-// =======================================================
-// TIPO
-// =======================================================
+import type { Versao } from './versao'
 
 export type HinoSelecionado = {
 
     itemId: string
 
-    hinoId: number
+    hinoId: string
 
     nome: string
 
     autor: string
 
-    versao: typeof hinos[number]['versoes'][number]
+    versao: Versao
 
-    versoes: typeof hinos[number]['versoes']
+    versoes: Versao[]
 
 }

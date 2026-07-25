@@ -2,7 +2,7 @@
 // IMPORTS
 // =======================================================
 
-import hinos from '../data/hinos'
+import type { Hino } from './hino'
 
 // =======================================================
 // TIPO
@@ -14,8 +14,6 @@ export type BottomSheetContext = {
 
     tipo: 'add' | 'edit'
 
-    hino: typeof hinos[number] | null
-
-    hinoSelecionadoId?: number
+    hino: Hino | null
 
 }

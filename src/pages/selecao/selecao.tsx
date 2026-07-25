@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import background from '../../assets/images/background/background.png'
 import logo from '../../assets/images/selecao/logo.png'
-import hinos from '../../data/hinos'
+import { buscarHinos } from '../../services/hinos.service'
 import CardHino from '../../components/CardHino/CardHino'
 import BottomSheet from '../../components/BottomSheet/BottomSheet'
 import FloatingSelection from '../../components/FloatingSelection/FloatingSelection'
@@ -18,6 +18,7 @@ import { salvarSelecao } from '../../services/salvarselecao.service'
 import { useContext } from 'react'
 import { identificacaocontext } from '../../contexts/identificacao/identificacaocontext'
 import { selectioncontext } from '../../contexts/selectioncontext/selectioncontext'
+import type { Hino } from '../../types/hino'
 
 import './selecao.css'
 
@@ -32,11 +33,11 @@ function Selecao() {
 // =======================================================
 
     const [pesquisa, setPesquisa] = useState('')
+    const [hinos, setHinos] = useState<Hino[]>([])
     const [pesquisando, setPesquisando] = useState(false)
     const [bottomSheetAberto, setBottomSheetAberto] = useState(false)
-    const [hinoSelecionado, setHinoSelecionado] = useState<
-       typeof hinos[number] | null
-    >(null)
+    const [hinoSelecionado, setHinoSelecionado] =
+    useState<Hino | null>(null)
     const [bottomSheetModo, setBottomSheetModo] = useState<'add' | 'edit'>('add')
     const [editingItemId, setEditingItemId] = useState<string | null>(null)
     const { hinosSelecionados, setHinosSelecionados } = useContext(selectioncontext)
@@ -76,16 +77,6 @@ function Selecao() {
     // FUNÇÕES
     // =======================================================
 
-    function normalizarTexto(texto: string) {
-
-    return texto
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .toLowerCase()
-        .trim()
-
-}
-
 function fecharBottomSheet() {
     setBottomSheetAberto(false)
     setHinoSelecionado(null)
@@ -108,16 +99,11 @@ function selecionarHino(versao: string) {
 
                 autor: hinoSelecionado.autor,
 
-                versao:
-
-                    hinoSelecionado.versoes.find(
-
-                        (item) => item.nome === versao
-
-                    )!,
+                versao: hinoSelecionado.versoes.find(
+                    (item: any) => item.nome === versao
+                )!,
 
                 versoes: hinoSelecionado.versoes,
-
             },
         ])
 
@@ -180,11 +166,33 @@ function trocarVersao(itemId: string) {
     // DADOS
     // =======================================================
 
-    const hinosFiltrados = hinos.filter((hino) =>
-       normalizarTexto(hino.nome).includes(
-          normalizarTexto(pesquisa)
-       )
-    )
+    useEffect(() => {
+    async function pesquisar() {
+
+        if (pesquisa.trim().length < 3) {
+            setHinos([])
+            return
+        }
+
+        try {
+
+            const resultado = await buscarHinos(pesquisa)
+
+            console.log(resultado)
+
+            setHinos(resultado)
+
+        } catch (error) {
+
+            console.error(error)
+
+        }
+
+    }
+
+    pesquisar()
+
+}, [pesquisa])
 
     // =======================================================
     // JSX
@@ -232,13 +240,13 @@ function trocarVersao(itemId: string) {
                     {
                         pesquisa.trim().length >= 3 &&
 
-                        hinosFiltrados.map((hino) => (
+                        hinos.map((hino) => (
 
                             <CardHino
                                 key={hino.id}
                                 nome={hino.nome}
                                 autor={hino.autor}
-                                versao={hino.versoes[0]?.nome ?? 'Original'}
+                                versao="Selecionar versão"
                                 onClick={() => {
 
                                     setHinoSelecionado(hino)

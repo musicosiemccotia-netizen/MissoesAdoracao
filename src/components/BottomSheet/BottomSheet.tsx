@@ -1,6 +1,5 @@
 import './BottomSheet.css'
-
-import hinos from '../../data/hinos'
+import type { Hino } from '../../types/hino'
 
 // =======================================================
 // TIPAGEM
@@ -10,7 +9,7 @@ type Props = {
 
     aberto: boolean
 
-    hino: typeof hinos[number] | null
+    hino: Hino | null
 
     modo: 'add' | 'edit'
 
