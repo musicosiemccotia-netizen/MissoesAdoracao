@@ -47,6 +47,7 @@ function Selecao() {
     const [selectionSheetAberto, setSelectionSheetAberto] = useState(false)
     const navigate = useNavigate()
     const { identificacao } = useContext(identificacaocontext)
+    const [enviando, setEnviando] = useState(false)
     
 
     // =======================================================
@@ -304,6 +305,8 @@ function trocarVersao(itemId: string) {
 
     hinos={hinosSelecionados}
 
+    enviando={enviando}
+
     actions={{
 
         onFechar: () => {
@@ -314,7 +317,11 @@ function trocarVersao(itemId: string) {
 
         onConcluir: async () => {
 
-    if (hinosSelecionados.length === 0) {
+        if (enviando) {
+            return
+        }
+
+        if (hinosSelecionados.length === 0) {
 
         alert('Selecione pelo menos um hino.')
 
@@ -322,51 +329,58 @@ function trocarVersao(itemId: string) {
 
     }
 
-    try {
+try {
 
-       const resultado = await salvarSelecao({
+    setEnviando(true)
 
-    participante: {
+    // Permite que o React renderize o botão antes da requisição
+    await new Promise<void>((resolve) =>
+        requestAnimationFrame(() => resolve())
+    )
 
-        primeiroNome: identificacao.primeiroNome,
+    const resultado = await salvarSelecao({
 
-        sobrenome: identificacao.sobrenome,
+        participante: {
 
-        cargo: identificacao.cargo,
+            primeiroNome: identificacao.primeiroNome,
 
-        congregacao: identificacao.congregacao
+            sobrenome: identificacao.sobrenome,
 
-    },
+            cargo: identificacao.cargo,
 
-    culto: identificacao.culto,
+            congregacao: identificacao.congregacao
 
-    data: new Date().toISOString(),
+        },
 
-    hinos: hinosSelecionados
+        culto: identificacao.culto,
 
-})
+        data: new Date().toISOString(),
 
-console.log('resultado:', resultado)
+        hinos: hinosSelecionados
 
-navigate('/success', {
-    state: {
-        dataSelecao: resultado.dataSelecao
+    })
+
+    navigate('/success', {
+        state: {
+            dataSelecao: resultado.dataSelecao
+        }
+    })
+
+} catch (error) {
+
+            console.error(error)
+
+            alert('Não foi possível salvar sua seleção. Tente novamente.')
+
+            setEnviando(false)
+
+        }
+
     }
-})
 
-    } catch (error) {
+}}
 
-        console.error(error)
-
-        alert('Não foi possível salvar sua seleção. Tente novamente.')
-
-    }
-
-}
-
-    }}
-
-    cardActions={{
+cardActions={{
 
         onTrocarVersao: (itemId: string) => {
             trocarVersao(itemId)

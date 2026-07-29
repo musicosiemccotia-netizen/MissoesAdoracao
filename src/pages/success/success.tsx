@@ -24,9 +24,15 @@ const dataSelecao =
 console.log('location.state:', location.state)
 console.log('dataSelecao:', dataSelecao)
 
-const { identificacao } = useContext(identificacaocontext)
+const {
+    identificacao,
+    setidentificacao
+} = useContext(identificacaocontext)
 
-const { hinosSelecionados } = useContext(selectioncontext)
+const {
+    hinosSelecionados,
+    setHinosSelecionados
+} = useContext(selectioncontext)
 
 const receiptDownloadRef = useRef<ReceiptDownloadRef>(null)
 
@@ -66,11 +72,25 @@ const receiptDownloadRef = useRef<ReceiptDownloadRef>(null)
         </div>
 
         <button
-            className="success-button"
-            onClick={() => navigate('/')}
-        >
-            Voltar ao início
-        </button>
+    className="success-button"
+    onClick={() => {
+
+        setHinosSelecionados([])
+
+        setidentificacao({
+            primeiroNome: '',
+            sobrenome: '',
+            cargo: '',
+            congregacao: '',
+            culto: ''
+        })
+
+        navigate('/')
+
+    }}
+    >
+    Voltar ao início
+    </button>
 
         <button
     className="success-download"

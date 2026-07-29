@@ -237,3 +237,19 @@
     color: #111;
 
 }
+
+.selectionsheet-concluir:disabled{
+
+    opacity:.7;
+
+    cursor:not-allowed;
+
+}
+
+.selectionsheet-concluir:disabled{
+
+    opacity: .7;
+
+    cursor: not-allowed;
+
+}

@@ -19,6 +19,8 @@
 
 type SelectionSheetProps = {
 
+    enviando: boolean
+    
     aberto: boolean
 
     hinos: HinoSelecionado[]
@@ -38,6 +40,8 @@ function SelectionSheet({
     aberto,
 
     hinos,
+    
+    enviando,
 
     actions,
 
@@ -168,9 +172,12 @@ function SelectionSheet({
                     <button
                         className="selectionsheet-concluir"
                         onClick={actions.onConcluir}
+                        disabled={enviando}
                     >
 
-                        Concluir seleção
+                        {enviando
+                            ? 'Enviando seleção...'
+                            : 'Concluir seleção'}
 
                     </button>
 

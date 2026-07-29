@@ -241,7 +241,7 @@ navigate('/selecao')
   <option>Betel</option>
   <option>Gelc</option>
   <option>Herdeiros de Cristo e Pequeninos de Jesus</option>
-  <option>Culto Público (Domingo)</option>
+  <option>Público (Domingo)</option>
 </select>
 
         </div>

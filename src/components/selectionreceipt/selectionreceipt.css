@@ -317,3 +317,17 @@
     min-width: 0;
 
 }
+
+.receipt-value{
+
+    margin:0;
+
+    font-size:24px;
+
+    font-weight:600;
+
+    color:#232323;
+
+    line-height:1.15;
+
+}

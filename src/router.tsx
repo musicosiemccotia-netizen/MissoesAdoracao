@@ -5,6 +5,7 @@ import Identificacao from './pages/Identificacao/Identificacao'
 import Selecao from './pages/selecao/selecao'
 import Success from './pages/success/success'
 import Preview from './pages/preview/preview'
+import Provisorio from './pages/provisorio/provisorio'
 
 function Router() {
   return (
@@ -34,6 +35,11 @@ function Router() {
         <Route
           path="/preview"
           element={<Preview />}
+        />
+
+        <Route
+          path="/provisorio"
+          element={<Provisorio />}
         />
 
       </Routes>
