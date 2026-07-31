@@ -110,6 +110,10 @@ function selecionarHino(versao: string) {
 
         setFloatingMensagem('Hino adicionado')
         setFloatingExpandido(true)
+
+        setPesquisa('')
+        setHinos([])
+
         fecharBottomSheet()
     } else {
 
@@ -142,6 +146,9 @@ function selecionarHino(versao: string) {
 
         fecharBottomSheet()
 
+        setPesquisa('')
+        setHinos([])
+
         setFloatingMensagem('Versão atualizada')
         setFloatingExpandido(true)
 
@@ -149,16 +156,22 @@ function selecionarHino(versao: string) {
 }
 
 function trocarVersao(itemId: string) {
-    const itemSelecionado = hinosSelecionados.find((item) => item.itemId === itemId)
+    const itemSelecionado = hinosSelecionados.find(
+        (item) => item.itemId === itemId
+    )
 
     if (!itemSelecionado) return
 
-    const hinoOriginal = hinos.find((h) => h.id === itemSelecionado.hinoId)
-
-    if (!hinoOriginal) return
-
     setEditingItemId(itemId)
-    setHinoSelecionado(hinoOriginal)
+
+    setHinoSelecionado({
+        id: itemSelecionado.hinoId,
+        nome: itemSelecionado.nome,
+        autor: itemSelecionado.autor,
+        categoria: '',
+        versoes: itemSelecionado.versoes
+    })
+
     setBottomSheetModo('edit')
     setBottomSheetAberto(true)
 }
@@ -168,31 +181,21 @@ function trocarVersao(itemId: string) {
     // =======================================================
 
     useEffect(() => {
-    async function pesquisar() {
-
-        if (pesquisa.trim().length < 3) {
-            setHinos([])
-            return
-        }
-
-        try {
-
-            const resultado = await buscarHinos(pesquisa)
-
-            console.log(resultado)
-
-            setHinos(resultado)
-
-        } catch (error) {
-
-            console.error(error)
-
-        }
-
+    if (pesquisa.trim().length < 3) {
+        setHinos([])
+        return
     }
 
-    pesquisar()
+    const timeout = setTimeout(async () => {
+        try {
+            const resultado = await buscarHinos(pesquisa)
+            setHinos(resultado)
+        } catch (error) {
+            console.error(error)
+        }
+    }, 300)
 
+    return () => clearTimeout(timeout)
 }, [pesquisa])
 
     // =======================================================

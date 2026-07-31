@@ -147,13 +147,13 @@ function SelectionSheet({
 
 }}
 
-        onVerTodas={() => {
+onVerTodas={() => {
+
+    cardActions.onTrocarVersao(hino.itemId)
 
     setOpenedItemId(null)
 
     actions.onFechar()
-
-    cardActions.onTrocarVersao(hino.itemId)
 
 }}
 

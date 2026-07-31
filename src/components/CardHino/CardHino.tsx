@@ -53,12 +53,6 @@ function CardHino({
 
             </div>
 
-            <div className="card-arrow">
-
-                →
-
-            </div>
-
         </div>
 
     )

@@ -1,16 +1,25 @@
 import { supabase } from '../lib/supabase'
 
 export async function buscarHinos(texto: string) {
+  
+  interface Hino {
+  id: string
+  nome: string
+  compositor: string
+  categoria: string
+} 
+  
   // Busca os hinos
   const { data: hinos, error: erroHinos } = await supabase
-  .from('hinos')
-  .select('*')
-  .ilike('nome', `%${texto}%`)
-  .order('nome')
+  .rpc('buscar_hinos', {
+    pesquisa: texto
+  })
+
+  const listaHinos = (hinos ?? []) as Hino[]
   
   if (erroHinos) throw erroHinos
 
-  if (!hinos || hinos.length === 0) {
+  if (listaHinos.length === 0) {
     return []
   }
 
@@ -20,7 +29,7 @@ export async function buscarHinos(texto: string) {
     .select('*')
     .in(
       'hino_id',
-      hinos.map((h) => h.id)
+      listaHinos.map((h) => h.id)
     )
 
   if (erroVersoes) throw erroVersoes
@@ -30,7 +39,7 @@ export async function buscarHinos(texto: string) {
 console.log(hinos)
 console.log(versoes)
   
-  return hinos.map((hino) => ({
+  return listaHinos.map((hino) => ({
     id: hino.id,
     nome: hino.nome,
     autor: hino.compositor,
