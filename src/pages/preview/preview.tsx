@@ -1,6 +1,6 @@
 import SelectionReceipt from '../../components/selectionreceipt'
 
-import type { HinoSelecionado } from '../../types/HinoSelecionado'
+import type { HinoSelecionado } from '../../types/hinoselecionado'
 
 import './preview.css'
 

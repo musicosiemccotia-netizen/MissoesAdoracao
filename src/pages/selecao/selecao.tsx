@@ -201,7 +201,7 @@ function selecionarHino(versao: string) {
         setPesquisa('')
         setHinos([])
 
-        setFloatingMensagem('VersÃ£o atualizada')
+        setFloatingMensagem('Versão atualizada')
         setFloatingExpandido(true)
 
     }
@@ -303,7 +303,7 @@ function trocarVersao(itemId: string) {
                                     key={hino.id}
                                     nome={hino.nome}
                                     autor={hino.autor}
-                                    versao="Selecionar versÃ£o"
+                                    versao="Selecionar versão"
                                     onClick={() => {
 
                                         setHinoSelecionado(hino)

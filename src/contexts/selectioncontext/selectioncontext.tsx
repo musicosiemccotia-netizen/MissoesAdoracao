@@ -1,7 +1,7 @@
 import { createContext, useState } from 'react'
 import type { ReactNode } from 'react'
 
-import type { HinoSelecionado } from '../../types/HinoSelecionado'
+import type { HinoSelecionado } from '../../types/hinoselecionado'
 
 type selectioncontexttype = {
 

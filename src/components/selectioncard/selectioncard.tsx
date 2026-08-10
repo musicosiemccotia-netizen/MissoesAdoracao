@@ -2,7 +2,7 @@
 // IMPORTS
 // =======================================================
 
-import type { HinoSelecionado } from '../../types/HinoSelecionado'
+import type { HinoSelecionado } from '../../types/hinoselecionado'
 import type { SelectionCardActions } from '../../types/selectioncardactions'
 
 import './selectioncard.css'

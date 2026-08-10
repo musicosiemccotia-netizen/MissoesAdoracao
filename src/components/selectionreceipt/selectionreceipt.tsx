@@ -3,7 +3,7 @@ import { forwardRef } from 'react'
 import './selectionreceipt.css'
 
 import type { identificacao } from '../../types/identificacao'
-import type { HinoSelecionado } from '../../types/HinoSelecionado'
+import type { HinoSelecionado } from '../../types/hinoselecionado'
 import logo from '../../assets/images/home/logo.png'
 
 type SelectionReceiptProps = {
@@ -47,6 +47,7 @@ const dataFormatada = dataSelecao
         <div
             ref={ref}
             className={`selection-receipt ${exportMode ? 'selection-receipt-export' : ''}`}
+            translate="no"
         >
 
             <div className="receipt-header-divider"></div>

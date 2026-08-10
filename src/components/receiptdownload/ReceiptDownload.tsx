@@ -9,7 +9,7 @@ import { toPng } from 'html-to-image'
 import SelectionReceipt from '../selectionreceipt'
 
 import type { identificacao } from '../../types/identificacao'
-import type { HinoSelecionado } from '../../types/HinoSelecionado'
+import type { HinoSelecionado } from '../../types/hinoselecionado'
 
 
 
@@ -65,6 +65,7 @@ const ReceiptDownload = forwardRef<ReceiptDownloadRef, ReceiptDownloadProps>(({
 
 return (
     <div
+        translate="no"
         style={{
             position: 'fixed',
             left: '-10000px',

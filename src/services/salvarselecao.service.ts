@@ -1,4 +1,4 @@
-import type { HinoSelecionado } from '../types/HinoSelecionado'
+import type { HinoSelecionado } from '../types/hinoselecionado'
 
 import { obterOuCriarParticipante } from './participantes.service'
 import { criarSelecaoRepertorio } from './selecoesrepertorio.service'
