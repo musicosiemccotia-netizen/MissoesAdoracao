@@ -2,7 +2,7 @@
 // IMPORTS
 // =======================================================
 
-import './FloatingSelection.css'
+import './floatingselection.css'
 
 import MusicIcon from '../../assets/icons/music.svg?react'
 

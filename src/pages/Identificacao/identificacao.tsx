@@ -17,7 +17,7 @@ import logo from '../../assets/images/identificacao/logo.png'
 import { identificacaocontext } from '../../contexts/identificacao/identificacaocontext'
 
 // CSS
-import './Identificacao.css'
+import './identificacao.css'
 
 // =======================================================
 // ESTADOS

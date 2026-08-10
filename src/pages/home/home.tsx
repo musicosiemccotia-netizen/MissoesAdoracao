@@ -11,7 +11,7 @@ import missoes from '../../assets/images/home/missoes.png'
 import adoracao from '../../assets/images/home/adoracao.png'
 import bemVindo from '../../assets/images/home/bem-vindo.png'
 
-import './Home.css'
+import './home.css'
 
 
 // =======================================================

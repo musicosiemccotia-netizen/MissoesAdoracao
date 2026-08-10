@@ -1,4 +1,4 @@
-import './BottomSheet.css'
+import './bottomsheet.css'
 import type { Hino } from '../../types/hino'
 
 // =======================================================
