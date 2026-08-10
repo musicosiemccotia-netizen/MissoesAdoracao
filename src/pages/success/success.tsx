@@ -9,7 +9,7 @@ import fundo from '../../assets/images/background/background-com-barra.png'
 
 import ReceiptDownload, {
     type ReceiptDownloadRef
-} from '../../components/receiptdownload/ReceiptDownload'
+} from '../../components/receiptdownload/receiptdownload'
 
 import { identificacaocontext } from '../../contexts/identificacao/identificacaocontext'
 import { selectioncontext } from '../../contexts/selectioncontext/selectioncontext'

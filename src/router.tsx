@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-import Home from './pages/home/home'
+import Home from './pages/home/home.tsx'
 import Identificacao from './pages/identificacao/identificacao'
 import Selecao from './pages/selecao/selecao'
 import Success from './pages/success/success'

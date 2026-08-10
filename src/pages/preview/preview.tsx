@@ -11,7 +11,7 @@ import { supabase } from '../../lib/supabase'
 
 import ReceiptDownload, {
     type ReceiptDownloadRef
-} from '../../components/receiptdownload/ReceiptDownload'
+} from '../../components/receiptdownload/receiptdownload'
 
 const identificacao = {
 
