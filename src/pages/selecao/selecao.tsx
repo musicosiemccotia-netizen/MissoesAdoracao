@@ -1,4 +1,4 @@
-// =======================================================
+﻿// =======================================================
 // IMPORTS
 // =======================================================
 
@@ -7,13 +7,14 @@ import { useEffect, useRef, useState } from 'react'
 import background from '../../assets/images/background/background.png'
 import logo from '../../assets/images/selecao/logo.png'
 import { buscarHinos } from '../../services/hinos.service'
-import CardHino from '../../components/CardHino/CardHino'
-import BottomSheet from '../../components/BottomSheet/BottomSheet'
-import FloatingSelection from '../../components/FloatingSelection/FloatingSelection'
+import CardHino from '../../components/cardhino/cardhino'
+import BottomSheet from '../../components/bottomsheet/bottomsheet'
+import FloatingSelection from '../../components/floatingselection/floatingselection'
 import SelectionSheet from '../../components/selectionsheet/selectionsheet'
 import generateId from '../../utils/generateid'
 import { useNavigate } from 'react-router-dom'
 import { salvarSelecao } from '../../services/salvarselecao.service'
+import SolicitarHino from '../../components/solicitarhino/solicitarhino'
 
 import { useContext } from 'react'
 import { identificacaocontext } from '../../contexts/identificacao/identificacaocontext'
@@ -48,7 +49,7 @@ function Selecao() {
     const navigate = useNavigate()
     const { identificacao } = useContext(identificacaocontext)
     const [enviando, setEnviando] = useState(false)
-    
+    const [solicitarHinoAberto, setSolicitarHinoAberto] = useState(false)
 
     // =======================================================
     // EFEITOS
@@ -75,7 +76,7 @@ function Selecao() {
     }, [floatingExpandido])
 
     // =======================================================
-    // FUNÇÕES
+    // FUNÃ‡Ã•ES
     // =======================================================
 
 function fecharBottomSheet() {
@@ -83,6 +84,57 @@ function fecharBottomSheet() {
     setHinoSelecionado(null)
     setEditingItemId(null)
     setBottomSheetModo('add')
+}
+
+function adicionarHinoSolicitado(
+    nomeHino: string,
+    nomeVersao: string,
+    youtube: string
+) {
+
+    const versao = {
+        id: generateId(),
+        nome: nomeVersao,
+        tom: null,
+        bpm: null,
+        letra: null,
+        cifra: null,
+        spotify: null,
+        deezer: null,
+        youtube: youtube || null,
+        audio: null,
+        appleMusic: null,
+        observacao: 'Hino solicitado pelo participante'
+    }
+
+    setHinosSelecionados((lista) => [
+        ...lista,
+        {
+            itemId: generateId(),
+
+            hinoId: '',
+
+            nome: nomeHino,
+
+            autor: 'Solicitado pelo participante',
+
+            versao,
+
+            versoes: [versao],
+
+            pendenteCadastro: true
+        }
+    ])
+
+    setPesquisa('')
+
+    setHinos([])
+
+    setSolicitarHinoAberto(false)
+
+    setFloatingMensagem('Hino adicionado à sua seleção')
+
+    setFloatingExpandido(true)
 }
 
 function selecionarHino(versao: string) {
@@ -149,7 +201,7 @@ function selecionarHino(versao: string) {
         setPesquisa('')
         setHinos([])
 
-        setFloatingMensagem('Versão atualizada')
+        setFloatingMensagem('VersÃ£o atualizada')
         setFloatingExpandido(true)
 
     }
@@ -241,207 +293,179 @@ function trocarVersao(itemId: string) {
 
                 <div className="lista-hinos">
 
-                    {
-                        pesquisa.trim().length >= 3 &&
+                    {pesquisa.trim().length >= 3 && (
 
-                        hinos.map((hino) => (
+                        hinos.length > 0 ? (
 
-                            <CardHino
-                                key={hino.id}
-                                nome={hino.nome}
-                                autor={hino.autor}
-                                versao="Selecionar versão"
-                                onClick={() => {
+                            hinos.map((hino) => (
 
-                                    setHinoSelecionado(hino)
-                                    setBottomSheetModo('add')
-                                    setEditingItemId(null)
+                                <CardHino
+                                    key={hino.id}
+                                    nome={hino.nome}
+                                    autor={hino.autor}
+                                    versao="Selecionar versÃ£o"
+                                    onClick={() => {
 
-                                   setBottomSheetAberto(true)
+                                        setHinoSelecionado(hino)
+                                        setBottomSheetModo('add')
+                                        setEditingItemId(null)
+                                        setBottomSheetAberto(true)
 
-                                }}
-                            />
+                                    }}
+                                />
 
-                        ))
+                            ))
 
-                    }
+                        ) : (
+
+                            <div className="hino-nao-encontrado">
+
+                                <h3>
+                                    Não encontrou o hino?
+                                </h3>
+
+                                <p>
+                                    Você pode adicionar o hino manualmente
+                                    à sua seleção.
+                                </p>
+
+                                <button
+                                    type="button"
+                                    onClick={() => setSolicitarHinoAberto(true)}
+                                >
+                                    + Solicitar inclusão do hino
+                                </button>
+
+                            </div>
+
+                        )
+
+                    )}
 
                 </div>
 
-                    </div>
+                <SolicitarHino
+                    aberto={solicitarHinoAberto}
+                    onAdicionar={adicionarHinoSolicitado}
+                    onFechar={() => setSolicitarHinoAberto(false)}
+                />
 
-                    <BottomSheet
-                        aberto={bottomSheetAberto}
-                        hino={hinoSelecionado}
-                        modo={bottomSheetModo}
-                        onSelecionar={selecionarHino}
-                        onFechar={fecharBottomSheet}
-                    />
+            </div>
 
-{
+            <BottomSheet
+                aberto={bottomSheetAberto}
+                hino={hinoSelecionado}
+                modo={bottomSheetModo}
+                onSelecionar={selecionarHino}
+                onFechar={fecharBottomSheet}
+            />
 
-    hinosSelecionados.length > 0 && (
+            {hinosSelecionados.length > 0 && (
+                <FloatingSelection
+                    mensagem={floatingMensagem}
+                    quantidade={hinosSelecionados.length}
+                    expandido={floatingExpandido}
+                    onAbrirSelecao={() => {
+                        setSelectionSheetAberto(true)
+                    }}
+                />
+            )}
 
-        <FloatingSelection
+            <SelectionSheet
+                aberto={selectionSheetAberto}
+                hinos={hinosSelecionados}
+                enviando={enviando}
+                actions={{
+                    onFechar: () => {
+                        setSelectionSheetAberto(false)
+                    },
+                    onConcluir: async () => {
+                        if (enviando) {
+                            return
+                        }
 
-            mensagem={floatingMensagem}
+                        if (hinosSelecionados.length === 0) {
+                            alert('Selecione pelo menos um hino.')
+                            return
+                        }
 
-    quantidade={hinosSelecionados.length}
+                        try {
+                            setEnviando(true)
 
-    expandido={floatingExpandido}
+                            // Permite que o React renderize o botão antes da requisição
+                            await new Promise<void>((resolve) =>
+                                requestAnimationFrame(() => resolve())
+                            )
 
-    onAbrirSelecao={() => {
+                            const resultado = await salvarSelecao({
+                                participante: {
+                                    primeiroNome: identificacao.primeiroNome,
+                                    sobrenome: identificacao.sobrenome,
+                                    cargo: identificacao.cargo,
+                                    congregacao: identificacao.congregacao
+                                },
+                                culto: identificacao.culto,
+                                data: new Date().toISOString(),
+                                hinos: hinosSelecionados
+                            })
 
-    setSelectionSheetAberto(true)
+                            navigate('/success', {
+                                state: {
+                                    dataSelecao: resultado.dataSelecao
+                                }
+                            })
+                        } catch (error) {
+                            console.error(error)
+                            alert('Não foi possível salvar sua seleção. Tente novamente.')
+                            setEnviando(false)
+                        }
+                    }
+                }}
+                cardActions={{
+                    onTrocarVersao: (itemId: string) => {
+                        trocarVersao(itemId)
+                    },
+                    onSelecionarVersao: (itemId: string, versao: string) => {
+                        setHinosSelecionados((lista) =>
+                            lista.map((hino) => {
+                                if (hino.itemId !== itemId) {
+                                    return hino
+                                }
 
-}}
+                                const versaoSelecionada = hino.versoes.find(
+                                    (versaoItem) => versaoItem.nome === versao
+                                )
 
-/>
+                                if (!versaoSelecionada) {
+                                    return hino
+                                }
 
+                                return {
+                                    ...hino,
+                                    versao: versaoSelecionada
+                                }
+                            })
+                        )
+
+                        setFloatingMensagem('Versão atualizada')
+                        setFloatingExpandido(true)
+                    },
+                    onRemover: (itemId: string) => {
+                        setHinosSelecionados((lista) => {
+                            const novaLista = lista.filter((hino) => hino.itemId !== itemId)
+
+                            if (novaLista.length === 0) {
+                                setSelectionSheetAberto(false)
+                            }
+
+                            return novaLista
+                        })
+                    }
+                }}
+            />
+
+        </main>
     )
-
-}
-
-<SelectionSheet
-
-    aberto={selectionSheetAberto}
-
-    hinos={hinosSelecionados}
-
-    enviando={enviando}
-
-    actions={{
-
-        onFechar: () => {
-
-            setSelectionSheetAberto(false)
-
-        },
-
-        onConcluir: async () => {
-
-        if (enviando) {
-            return
-        }
-
-        if (hinosSelecionados.length === 0) {
-
-        alert('Selecione pelo menos um hino.')
-
-        return
-
-    }
-
-try {
-
-    setEnviando(true)
-
-    // Permite que o React renderize o botão antes da requisição
-    await new Promise<void>((resolve) =>
-        requestAnimationFrame(() => resolve())
-    )
-
-    const resultado = await salvarSelecao({
-
-        participante: {
-
-            primeiroNome: identificacao.primeiroNome,
-
-            sobrenome: identificacao.sobrenome,
-
-            cargo: identificacao.cargo,
-
-            congregacao: identificacao.congregacao
-
-        },
-
-        culto: identificacao.culto,
-
-        data: new Date().toISOString(),
-
-        hinos: hinosSelecionados
-
-    })
-
-    navigate('/success', {
-        state: {
-            dataSelecao: resultado.dataSelecao
-        }
-    })
-
-} catch (error) {
-
-            console.error(error)
-
-            alert('Não foi possível salvar sua seleção. Tente novamente.')
-
-            setEnviando(false)
-
-        }
-
-    }
-
-}}
-
-cardActions={{
-
-        onTrocarVersao: (itemId: string) => {
-            trocarVersao(itemId)
-        },
-
-        onSelecionarVersao: (itemId: string, versao: string) => {
-
-            setHinosSelecionados((lista) =>
-                lista.map((hino) => {
-                    if (hino.itemId !== itemId) {
-                        return hino
-                    }
-
-                    const versaoSelecionada = hino.versoes.find(
-                        (versaoItem) => versaoItem.nome === versao
-                    )
-
-                    if (!versaoSelecionada) {
-                        return hino
-                    }
-
-                    return {
-                        ...hino,
-                        versao: versaoSelecionada,
-                    }
-                })
-            )
-
-            setFloatingMensagem('Versão atualizada')
-            setFloatingExpandido(true)
-        },
-
-        onRemover: (itemId: string) => {
-
-            setHinosSelecionados((lista) => {
-
-                const novaLista = lista.filter((hino) => hino.itemId !== itemId)
-
-                if (novaLista.length === 0) {
-
-                    setSelectionSheetAberto(false)
-
-                }
-
-                return novaLista
-
-            })
-
-        }
-
-    }}
-
-/> 
-
-          </main>
-
-)
-
 }
 
 export default Selecao

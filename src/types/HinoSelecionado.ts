@@ -14,4 +14,6 @@ export type HinoSelecionado = {
 
     versoes: Versao[]
 
+    pendenteCadastro?: boolean
+
 }

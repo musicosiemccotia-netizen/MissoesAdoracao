@@ -1,17 +1,27 @@
-import { useState } from 'react'
-import { useContext } from 'react'
+// =======================================================
+// IMPORTS
+// =======================================================
 
+// React
+import { useContext, useState } from 'react'
+
+// React Router
 import { useNavigate } from 'react-router-dom'
 
+// Assets
 import background from '../../assets/images/background/background.png'
-import logo from '../../assets/images/identificacao/logo.png'
 import botaoContinuar from '../../assets/images/identificacao/botao-continuar.png'
+import logo from '../../assets/images/identificacao/logo.png'
 
-
-
+// Contexts
 import { identificacaocontext } from '../../contexts/identificacao/identificacaocontext'
 
+// CSS
 import './Identificacao.css'
+
+// =======================================================
+// ESTADOS
+// =======================================================
 
 function Identificacao() {
 
@@ -28,10 +38,15 @@ function Identificacao() {
   const [erroCongregacao, setErroCongregacao] = useState(false)
   const [erroCulto, setErroCulto] = useState(false)
   
-  const navigate = useNavigate()
-  const { setidentificacao } = useContext(identificacaocontext)
 
-// Limpando mensagem de erro diretamente nos handlers de input
+  // =======================================================
+  // HOOKS
+  // =======================================================
+
+  const navigate = useNavigate()
+  
+  const { setidentificacao } =
+      useContext(identificacaocontext)
 
 function continuar() {
 
@@ -66,11 +81,13 @@ function continuar() {
   setMensagemErro('')
 
 setidentificacao({
-  primeiroNome,
-  sobrenome,
-  cargo,
-  congregacao,
-  culto
+  
+    primeiroNome,
+    sobrenome,
+    cargo,
+    congregacao,
+
+    culto
 })
 
 navigate('/selecao')

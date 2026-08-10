@@ -1,0 +1,207 @@
+.solicitarhino-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, .45);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: flex-end;
+
+    z-index: 1000;
+
+}
+
+.solicitarhino {
+
+    width: 100%;
+
+    max-width: 600px;
+
+    background: #ffffff;
+
+    border-radius: 28px 28px 0 0;
+
+    padding: 30px;
+
+    position: relative;
+
+    animation: solicitarhino-subir .25s ease;
+
+}
+
+.solicitarhino-handle {
+
+    width: 60px;
+
+    height: 6px;
+
+    margin: 0 auto 25px;
+
+    border-radius: 999px;
+
+    background: #d6d6d6;
+
+}
+
+.solicitarhino-close {
+
+    position: absolute;
+
+    top: 12px;
+
+    right: 16px;
+
+    width: 34px;
+
+    height: 34px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #666;
+
+    font-size: 24px;
+
+    cursor: pointer;
+
+}
+
+.solicitarhino h2 {
+
+    margin: 0 0 10px;
+
+    color: #222;
+
+    font-size: 26px;
+
+}
+
+.solicitarhino-subtitulo {
+
+    margin: 0 0 28px;
+
+    color: #777;
+
+    font-size: 15px;
+
+    line-height: 1.5;
+
+}
+
+.solicitarhino-campo {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+    margin-bottom: 18px;
+
+}
+
+.solicitarhino-campo label {
+
+    color: #555;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+}
+
+.solicitarhino-campo label span {
+
+    color: #999;
+
+    font-weight: 400;
+
+}
+
+.solicitarhino-campo input {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    height: 48px;
+
+    padding: 0 16px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 12px;
+
+    font-size: 16px;
+
+    outline: none;
+
+}
+
+.solicitarhino-campo input:focus {
+
+    border-color: #a12323;
+
+}
+
+.solicitarhino-erro {
+
+    margin: 0 0 15px;
+
+    color: #a12323;
+
+    font-size: 14px;
+
+}
+
+.solicitarhino-adicionar {
+
+    width: 100%;
+
+    height: 50px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #a12323;
+
+    color: #fff;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    margin-top: 5px;
+
+}
+
+.solicitarhino-adicionar:hover {
+
+    background: #8d1f1f;
+
+}
+
+@keyframes solicitarhino-subir {
+
+    from {
+
+        transform: translateY(100%);
+
+    }
+
+    to {
+
+        transform: translateY(0);
+
+    }
+
+}

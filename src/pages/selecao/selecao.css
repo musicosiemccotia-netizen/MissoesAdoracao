@@ -233,6 +233,68 @@
 
 }
 
+.hino-nao-encontrado {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+
+    border-radius: 20px;
+
+    padding: 24px;
+
+    text-align: center;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .08);
+
+}
+
+.hino-nao-encontrado h3 {
+
+    margin: 0 0 8px;
+
+    color: #222;
+
+    font-size: 19px;
+
+}
+
+.hino-nao-encontrado p {
+
+    margin: 0 0 18px;
+
+    color: #777;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+}
+
+.hino-nao-encontrado button {
+
+    border: none;
+
+    background: transparent;
+
+    color: #a12323;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+}
+
+.hino-nao-encontrado button:hover {
+
+    text-decoration: underline;
+
+}
+
 
 /* =======================================================
    BOTÕES
@@ -263,5 +325,67 @@
         font-size:26px;
 
     }
+
+}
+
+.hino-nao-encontrado {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+
+    border-radius: 20px;
+
+    padding: 24px;
+
+    text-align: center;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .08);
+
+}
+
+.hino-nao-encontrado h3 {
+
+    margin: 0 0 8px;
+
+    color: #222;
+
+    font-size: 19px;
+
+}
+
+.hino-nao-encontrado p {
+
+    margin: 0 0 18px;
+
+    color: #777;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+}
+
+.hino-nao-encontrado button {
+
+    border: none;
+
+    background: transparent;
+
+    color: #a12323;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+}
+
+.hino-nao-encontrado button:hover {
+
+    text-decoration: underline;
 
 }

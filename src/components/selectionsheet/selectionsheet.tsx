@@ -6,7 +6,7 @@
 
     import './selectionsheet.css'
 
-    import type { HinoSelecionado } from '../../types/HinoSelecionado'
+    import type { HinoSelecionado } from '../../types/hinoselecionado'
     import type { SelectionSheetActions } from '../../types/selectionsheetactions'
     import type { SelectionCardActions } from '../../types/selectioncardactions'
 
