@@ -12,7 +12,7 @@ import BottomSheet from '../../components/bottomsheet/bottomsheet'
 import FloatingSelection from '../../components/floatingselection/floatingselection'
 import SelectionSheet from '../../components/selectionsheet/selectionsheet'
 import generateId from '../../utils/generateid'
-import { useNavigate } from 'react-router-dom'
+import { useBlocker, useNavigate } from 'react-router-dom'
 import { salvarSelecao } from '../../services/salvarselecao.service'
 import SolicitarHino from '../../components/solicitarhino/solicitarhino'
 
@@ -35,6 +35,7 @@ function Selecao() {
 
     const [pesquisa, setPesquisa] = useState('')
     const [hinos, setHinos] = useState<Hino[]>([])
+    const [carregandoHinos, setCarregandoHinos] = useState(false)
     const [pesquisando, setPesquisando] = useState(false)
     const [bottomSheetAberto, setBottomSheetAberto] = useState(false)
     const [hinoSelecionado, setHinoSelecionado] =
@@ -50,10 +51,24 @@ function Selecao() {
     const { identificacao } = useContext(identificacaocontext)
     const [enviando, setEnviando] = useState(false)
     const [solicitarHinoAberto, setSolicitarHinoAberto] = useState(false)
+    const [solicitarVersaoAberto, setSolicitarVersaoAberto] = useState(false)
+    const [confirmarSaida, setConfirmarSaida] = useState(false)
+    const blocker = useBlocker(({ currentLocation, nextLocation }) => (
+        hinosSelecionados.length > 0 &&
+        currentLocation.pathname === '/selecao' &&
+        nextLocation.pathname !== '/selecao' &&
+        nextLocation.pathname !== '/success'
+    ))
 
     // =======================================================
     // EFEITOS
     // =======================================================
+
+    useEffect(() => {
+        if (blocker.state === 'blocked') {
+            setConfirmarSaida(true)
+        }
+    }, [blocker.state])
 
     useEffect(() => {
         if (!floatingExpandido) {
@@ -78,6 +93,23 @@ function Selecao() {
     // =======================================================
     // FUNÃ‡Ã•ES
     // =======================================================
+
+function confirmarSaidaDaSelecao() {
+
+    // Limpa seleção
+    setHinosSelecionados([])
+
+    setConfirmarSaida(false)
+    blocker.proceed?.()
+
+}
+
+function cancelarSaida() {
+
+    blocker.reset?.()
+    setConfirmarSaida(false)
+
+}
 
 function fecharBottomSheet() {
     setBottomSheetAberto(false)
@@ -134,6 +166,47 @@ function adicionarHinoSolicitado(
 
     setFloatingMensagem('Hino adicionado à sua seleção')
 
+    setFloatingExpandido(true)
+}
+
+function abrirSolicitacaoVersao() {
+    setBottomSheetAberto(false)
+    setSolicitarVersaoAberto(true)
+}
+
+function adicionarVersaoSolicitada(nomeVersao: string, youtube: string) {
+    if (!hinoSelecionado) return
+
+    const versao = {
+        id: generateId(),
+        nome: nomeVersao,
+        tom: null,
+        bpm: null,
+        letra: null,
+        cifra: null,
+        spotify: null,
+        deezer: null,
+        youtube: youtube || null,
+        audio: null,
+        appleMusic: null,
+        observacao: 'Versão solicitada pelo participante'
+    }
+
+    setHinosSelecionados((lista) => [
+        ...lista,
+        {
+            itemId: generateId(),
+            hinoId: hinoSelecionado.id,
+            nome: hinoSelecionado.nome,
+            autor: 'Solicitado pelo participante',
+            versao,
+            versoes: [versao],
+            pendenteCadastro: true
+        }
+    ])
+
+    setSolicitarVersaoAberto(false)
+    setFloatingMensagem('Versão adicionada à sua seleção')
     setFloatingExpandido(true)
 }
 
@@ -233,21 +306,37 @@ function trocarVersao(itemId: string) {
     // =======================================================
 
     useEffect(() => {
-    if (pesquisa.trim().length < 3) {
+    const textoPesquisa = pesquisa.trim()
+
+    if (textoPesquisa.length < 3) {
         setHinos([])
+        setCarregandoHinos(false)
         return
     }
 
+    setHinos([])
+    setCarregandoHinos(true)
+    let consultaAtiva = true
+
     const timeout = setTimeout(async () => {
         try {
-            const resultado = await buscarHinos(pesquisa)
-            setHinos(resultado)
+            const resultado = await buscarHinos(textoPesquisa)
+            if (consultaAtiva) {
+                setHinos(resultado)
+            }
         } catch (error) {
             console.error(error)
+        } finally {
+            if (consultaAtiva) {
+                setCarregandoHinos(false)
+            }
         }
     }, 300)
 
-    return () => clearTimeout(timeout)
+    return () => {
+        consultaAtiva = false
+        clearTimeout(timeout)
+    }
 }, [pesquisa])
 
     // =======================================================
@@ -293,7 +382,7 @@ function trocarVersao(itemId: string) {
 
                 <div className="lista-hinos">
 
-                    {pesquisa.trim().length >= 3 && (
+                    {pesquisa.trim().length >= 3 && !carregandoHinos && (
 
                         hinos.length > 0 ? (
 
@@ -350,6 +439,13 @@ function trocarVersao(itemId: string) {
                     onFechar={() => setSolicitarHinoAberto(false)}
                 />
 
+                <SolicitarHino
+                    aberto={solicitarVersaoAberto}
+                    hinoExistente={hinoSelecionado}
+                    onAdicionarVersao={adicionarVersaoSolicitada}
+                    onFechar={() => setSolicitarVersaoAberto(false)}
+                />
+
             </div>
 
             <BottomSheet
@@ -357,8 +453,22 @@ function trocarVersao(itemId: string) {
                 hino={hinoSelecionado}
                 modo={bottomSheetModo}
                 onSelecionar={selecionarHino}
+                onSolicitarVersao={abrirSolicitacaoVersao}
                 onFechar={fecharBottomSheet}
             />
+
+            {confirmarSaida && (
+                <div className="selecao-modal-overlay">
+                    <div className="selecao-modal">
+                        <h3>Sair da seleção?</h3>
+                        <p>Você possui hinos selecionados. Se sair agora, sua seleção será perdida.</p>
+                        <div className="selecao-modal-actions">
+                            <button type="button" onClick={cancelarSaida}>Continuar selecionando</button>
+                            <button type="button" onClick={confirmarSaidaDaSelecao}>Sair da seleção</button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {hinosSelecionados.length > 0 && (
                 <FloatingSelection

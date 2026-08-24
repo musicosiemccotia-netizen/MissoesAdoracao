@@ -1,15 +1,23 @@
 import { useState } from 'react'
+import type { Hino } from '../../types/hino'
 
 import './solicitarhino.css'
 
 type Props = {
     aberto: boolean
 
-    onAdicionar: (
+    onAdicionar?: (
         nomeHino: string,
         nomeVersao: string,
         youtube: string
     ) => void
+
+    onAdicionarVersao?: (
+        nomeVersao: string,
+        youtube: string
+    ) => void
+
+    hinoExistente?: Hino | null
 
     onFechar: () => void
 }
@@ -17,6 +25,8 @@ type Props = {
 function SolicitarHino({
     aberto,
     onAdicionar,
+    onAdicionarVersao,
+    hinoExistente,
     onFechar
 }: Props) {
 
@@ -29,16 +39,18 @@ function SolicitarHino({
     const [youtube, setYoutube] = useState('')
 
     const [erro, setErro] = useState('')
+    const solicitandoVersao = hinoExistente != null && onAdicionarVersao != null
 
     function adicionar() {
 
-        const hinoVazio = nomeHino.trim() === ''
         const versaoVazia = nomeVersao.trim() === ''
 
-        if (hinoVazio || versaoVazia) {
+        if ((!solicitandoVersao && nomeHino.trim() === '') || versaoVazia) {
 
             setErro(
-                'Informe o nome do hino e o nome da versão para continuar.'
+                solicitandoVersao
+                    ? 'Informe o nome da versão para continuar.'
+                    : 'Informe o nome do hino e o nome da versão para continuar.'
             )
 
             return
@@ -46,11 +58,12 @@ function SolicitarHino({
 
         setErro('')
 
-        onAdicionar(
-            nomeHino.trim(),
-            nomeVersao.trim(),
-            youtube.trim()
-        )
+        if (solicitandoVersao) {
+            onAdicionarVersao(nomeVersao.trim(), youtube.trim())
+            return
+        }
+
+        onAdicionar?.(nomeHino.trim(), nomeVersao.trim(), youtube.trim())
     }
 
     return (
@@ -77,15 +90,33 @@ function SolicitarHino({
                 </button>
 
                 <h2>
-                    Não encontrou o hino?
+                    {solicitandoVersao
+                        ? 'Solicitar nova versão'
+                        : 'Não encontrou o hino?'}
                 </h2>
 
                 <p className="solicitarhino-subtitulo">
-                    Informe os dados abaixo para adicionar
-                    este hino à sua seleção.
+                    {solicitandoVersao
+                        ? 'Informe os dados abaixo para solicitar uma nova versão.'
+                        : 'Informe os dados abaixo para adicionar este hino à sua seleção.'}
                 </p>
 
-                <div className="solicitarhino-campo">
+                {solicitandoVersao ? (
+                    <div className="solicitarhino-campo">
+
+                        <label>
+                            Hino
+                        </label>
+
+                        <input
+                            type="text"
+                            value={hinoExistente.nome}
+                            readOnly
+                        />
+
+                    </div>
+                ) : (
+                    <div className="solicitarhino-campo">
 
                     <label>
                         Nome do hino *
@@ -104,7 +135,8 @@ function SolicitarHino({
                         }}
                     />
 
-                </div>
+                    </div>
+                )}
 
                 <div className="solicitarhino-campo">
 
@@ -158,7 +190,9 @@ function SolicitarHino({
                     className="solicitarhino-adicionar"
                     onClick={adicionar}
                 >
-                    Adicionar à minha seleção
+                    {solicitandoVersao
+                        ? 'Solicitar versão'
+                        : 'Adicionar à minha seleção'}
                 </button>
 
             </div>

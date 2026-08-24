@@ -389,3 +389,74 @@
     text-decoration: underline;
 
 }
+
+/* Modal de confirmação de seleção */
+.selecao-modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.5);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+}
+.selecao-modal{
+    background:#fff;
+    padding:24px;
+    border-radius:12px;
+    max-width:420px;
+    width:90%;
+    box-shadow:0 10px 40px rgba(0,0,0,0.25);
+    text-align:center;
+    animation:slideUp .3s ease;
+}
+.selecao-modal h3{
+    margin:0 0 12px;
+    font-size:20px;
+    color:#111;
+}
+.selecao-modal p{
+    margin:0 0 20px;
+    color:#666;
+    font-size:15px;
+    line-height:1.5;
+}
+.selecao-modal-actions{
+    display:flex;
+    gap:12px;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+.selecao-modal-actions button{
+    padding:12px 18px;
+    border-radius:8px;
+    border:none;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:600;
+    transition:background .25s ease;
+}
+.selecao-modal-actions button:first-child{
+    background:#f0f0f0;
+    color:#333;
+}
+.selecao-modal-actions button:first-child:hover{
+    background:#e0e0e0;
+}
+.selecao-modal-actions button:last-child{
+    background:#a12323;
+    color:#fff;
+}
+.selecao-modal-actions button:last-child:hover{
+    background:#8b1c1c;
+}
+@keyframes slideUp{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}

@@ -15,6 +15,8 @@ type Props = {
 
     onSelecionar: (versao: string) => void
 
+    onSolicitarVersao: () => void
+
     onFechar: () => void
 
 }
@@ -30,6 +32,8 @@ function BottomSheet({
     modo,
 
     onSelecionar,
+
+    onSolicitarVersao,
 
     onFechar
 
@@ -125,7 +129,7 @@ function BottomSheet({
 
     </p>
 
-    <button>
+    <button type="button" onClick={onSolicitarVersao}>
 
         + Solicitar
 
