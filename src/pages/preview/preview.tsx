@@ -6,9 +6,6 @@ import './preview.css'
 
 import { useRef } from 'react'
 
-import { useEffect } from 'react'
-import { supabase } from '../../lib/supabase'
-
 import ReceiptDownload, {
     type ReceiptDownloadRef
 } from '../../components/receiptdownload/receiptdownload'
@@ -128,24 +125,6 @@ function Preview() {
         await receiptDownloadRef.current?.baixar()
 
     }
-
-useEffect(() => {
-
-    async function testarConexao() {
-
-        const { data, error } = await supabase
-            .from('hinos')
-            .select('*')
-
-        console.log('Dados:', data)
-
-        console.log('Erro:', error)
-
-    }
-
-    testarConexao()
-
-}, [])
 
     return (
 

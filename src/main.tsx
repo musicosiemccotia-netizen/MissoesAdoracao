@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
 import './styles/variables.css'
 import './index.css'
-import { router } from './router'
+import { router } from './router-config'
 import { IdentificacaoProvider } from './contexts/identificacao/identificacaocontext'
 import { SelectionProvider } from './contexts/selectioncontext/selectioncontext'
 

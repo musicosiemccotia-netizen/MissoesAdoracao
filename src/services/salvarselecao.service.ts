@@ -3,6 +3,7 @@ import type { HinoSelecionado } from '../types/hinoselecionado'
 import { obterOuCriarParticipante } from './participantes.service'
 import { criarSelecaoRepertorio } from './selecoesrepertorio.service'
 import { salvarItensSelecao } from './itensselecao.service'
+import { buscarGrupoMinisterioId } from './gruposministerios.service'
 
 type Participante = {
     primeiroNome: string
@@ -14,6 +15,8 @@ type Participante = {
 type SalvarSelecaoParams = {
 
     participante: Participante
+
+    grupoMinisterio: string | null | undefined
 
     culto: string
 
@@ -36,10 +39,16 @@ export async function salvarSelecao(
     const participanteId =
         await obterOuCriarParticipante(params.participante)
 
+    const grupoMinisterioId = params.grupoMinisterio
+        ? await buscarGrupoMinisterioId(params.grupoMinisterio)
+        : null
+
     const selecao =
         await criarSelecaoRepertorio({
 
             participanteId,
+
+            grupoMinisterioId,
 
             culto: params.culto,
 
@@ -54,8 +63,6 @@ export async function salvarSelecao(
         params.hinos
 
     )
-
-console.log('salvarSelecao:', selecao)
 
     return {
 

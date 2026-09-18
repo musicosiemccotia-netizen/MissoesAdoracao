@@ -17,8 +17,8 @@ import { salvarSelecao } from '../../services/salvarselecao.service'
 import SolicitarHino from '../../components/solicitarhino/solicitarhino'
 
 import { useContext } from 'react'
-import { identificacaocontext } from '../../contexts/identificacao/identificacaocontext'
-import { selectioncontext } from '../../contexts/selectioncontext/selectioncontext'
+import { identificacaocontext } from '../../contexts/identificacao/identificacaocontextvalue'
+import { selectioncontext } from '../../contexts/selectioncontext/selectioncontextvalue'
 import type { Hino } from '../../types/hino'
 
 import './selecao.css'
@@ -52,7 +52,6 @@ function Selecao() {
     const [enviando, setEnviando] = useState(false)
     const [solicitarHinoAberto, setSolicitarHinoAberto] = useState(false)
     const [solicitarVersaoAberto, setSolicitarVersaoAberto] = useState(false)
-    const [confirmarSaida, setConfirmarSaida] = useState(false)
     const blocker = useBlocker(({ currentLocation, nextLocation }) => (
         hinosSelecionados.length > 0 &&
         currentLocation.pathname === '/selecao' &&
@@ -63,12 +62,6 @@ function Selecao() {
     // =======================================================
     // EFEITOS
     // =======================================================
-
-    useEffect(() => {
-        if (blocker.state === 'blocked') {
-            setConfirmarSaida(true)
-        }
-    }, [blocker.state])
 
     useEffect(() => {
         if (!floatingExpandido) {
@@ -99,7 +92,6 @@ function confirmarSaidaDaSelecao() {
     // Limpa seleção
     setHinosSelecionados([])
 
-    setConfirmarSaida(false)
     blocker.proceed?.()
 
 }
@@ -107,7 +99,6 @@ function confirmarSaidaDaSelecao() {
 function cancelarSaida() {
 
     blocker.reset?.()
-    setConfirmarSaida(false)
 
 }
 
@@ -226,7 +217,7 @@ function selecionarHino(versao: string) {
                 autor: hinoSelecionado.autor,
 
                 versao: hinoSelecionado.versoes.find(
-                    (item: any) => item.nome === versao
+                    (item) => item.nome === versao
                 )!,
 
                 versoes: hinoSelecionado.versoes,
@@ -309,13 +300,9 @@ function trocarVersao(itemId: string) {
     const textoPesquisa = pesquisa.trim()
 
     if (textoPesquisa.length < 3) {
-        setHinos([])
-        setCarregandoHinos(false)
         return
     }
 
-    setHinos([])
-    setCarregandoHinos(true)
     let consultaAtiva = true
 
     const timeout = setTimeout(async () => {
@@ -371,7 +358,19 @@ function trocarVersao(itemId: string) {
                     type="text"
                     placeholder="Pesquisar hino..."
                     value={pesquisa}
-                    onChange={(e) => setPesquisa(e.target.value)}
+                    onChange={(e) => {
+                        const novaPesquisa = e.target.value
+
+                        setPesquisa(novaPesquisa)
+
+                        if (novaPesquisa.trim().length < 3) {
+                            setHinos([])
+                            setCarregandoHinos(false)
+                        } else {
+                            setHinos([])
+                            setCarregandoHinos(true)
+                        }
+                    }}
                     onFocus={() => setPesquisando(true)}
                     onBlur={() => {
                         if (pesquisa.trim() === '') {
@@ -457,7 +456,7 @@ function trocarVersao(itemId: string) {
                 onFechar={fecharBottomSheet}
             />
 
-            {confirmarSaida && (
+            {blocker.state === 'blocked' && (
                 <div className="selecao-modal-overlay">
                     <div className="selecao-modal">
                         <h3>Sair da seleção?</h3>
@@ -514,6 +513,9 @@ function trocarVersao(itemId: string) {
                                     cargo: identificacao.cargo,
                                     congregacao: identificacao.congregacao
                                 },
+                                grupoMinisterio: identificacao.ehGrupoMinisterio
+                                    ? identificacao.grupoMinisterio
+                                    : null,
                                 culto: identificacao.culto,
                                 data: new Date().toISOString(),
                                 hinos: hinosSelecionados

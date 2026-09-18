@@ -10,4 +10,8 @@ export type identificacao = {
 
     culto: string
 
+    ehGrupoMinisterio?: boolean
+
+    grupoMinisterio?: string
+
 }

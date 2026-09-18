@@ -14,10 +14,25 @@ import botaoContinuar from '../../assets/images/identificacao/botao-continuar.pn
 import logo from '../../assets/images/identificacao/logo.png'
 
 // Contexts
-import { identificacaocontext } from '../../contexts/identificacao/identificacaocontext'
+import { identificacaocontext } from '../../contexts/identificacao/identificacaocontextvalue'
 
 // CSS
 import './identificacao.css'
+
+const gruposMinisterio = [
+  'Semeadores de Cristo',
+  'Betel',
+  'GELC',
+  'Pequeninos de Jesus',
+  'Herdeiros de Cristo'
+]
+
+const cultosCorrespondentes: Record<string, string> = {
+  Betel: 'Betel',
+  GELC: 'Gelc',
+  'Pequeninos de Jesus': 'Herdeiros de Cristo e Pequeninos de Jesus',
+  'Herdeiros de Cristo': 'Herdeiros de Cristo e Pequeninos de Jesus'
+}
 
 // =======================================================
 // ESTADOS
@@ -30,6 +45,10 @@ function Identificacao() {
   const [cargo, setCargo] = useState('')
   const [congregacao, setCongregacao] = useState('')
   const [culto, setCulto] = useState('')
+  const [ehGrupoMinisterio, setEhGrupoMinisterio] = useState(false)
+  const [grupoMinisterio, setGrupoMinisterio] = useState('')
+  const [editandoGrupoMinisterio, setEditandoGrupoMinisterio] = useState(false)
+  const [grupoCultoPendente, setGrupoCultoPendente] = useState('')
 
   const [mensagemErro, setMensagemErro] = useState('')
   const [erroPrimeiroNome, setErroPrimeiroNome] = useState(false)
@@ -37,6 +56,7 @@ function Identificacao() {
   const [erroCargo, setErroCargo] = useState(false)
   const [erroCongregacao, setErroCongregacao] = useState(false)
   const [erroCulto, setErroCulto] = useState(false)
+  const [erroGrupoMinisterio, setErroGrupoMinisterio] = useState(false)
   
 
   // =======================================================
@@ -48,6 +68,23 @@ function Identificacao() {
   const { setidentificacao } =
       useContext(identificacaocontext)
 
+  function selecionarGrupoMinisterio(grupo: string) {
+    setGrupoMinisterio(grupo)
+    setEditandoGrupoMinisterio(false)
+    setErroGrupoMinisterio(false)
+    setGrupoCultoPendente(cultosCorrespondentes[grupo] ? grupo : '')
+    if (mensagemErro !== '') setMensagemErro('')
+  }
+
+  function responderCultoDoGrupo(aceitou: boolean) {
+    if (aceitou) {
+      setCulto(cultosCorrespondentes[grupoCultoPendente])
+      setErroCulto(false)
+    }
+
+    setGrupoCultoPendente('')
+  }
+
 function continuar() {
 
   const primeiroNomeVazio = primeiroNome.trim() === ''
@@ -55,23 +92,28 @@ function continuar() {
   const cargoVazio = cargo === ''
   const congregacaoVazia = congregacao === ''
   const cultoVazio = culto === ''
+  const grupoMinisterioVazio = ehGrupoMinisterio && grupoMinisterio === ''
 
   setErroPrimeiroNome(primeiroNomeVazio)
   setErroSobrenome(sobrenomeVazio)
   setErroCargo(cargoVazio)
   setErroCongregacao(congregacaoVazia)
   setErroCulto(cultoVazio)
+  setErroGrupoMinisterio(grupoMinisterioVazio)
 
   if (
     primeiroNomeVazio ||
     sobrenomeVazio ||
     cargoVazio ||
     congregacaoVazia ||
-    cultoVazio
+    cultoVazio ||
+    grupoMinisterioVazio
   ) {
 
     setMensagemErro(
-      'Complete os campos marcados com (*) para continuar.'
+      grupoMinisterioVazio
+        ? 'Selecione o grupo/ministério para continuar.'
+        : 'Complete os campos marcados com (*) para continuar.'
     )
 
     return
@@ -87,7 +129,11 @@ setidentificacao({
     cargo,
     congregacao,
 
-    culto
+    culto,
+
+    ehGrupoMinisterio,
+
+    grupoMinisterio
 })
 
 navigate('/selecao')
@@ -179,9 +225,20 @@ navigate('/selecao')
   value={cargo}
   onChange={(e) => {
 
-  setCargo(e.target.value)
+  const novoCargo = e.target.value
 
-  if (e.target.value !== '') {
+  setCargo(novoCargo)
+
+  if (novoCargo === '') {
+    setEhGrupoMinisterio(false)
+    setGrupoMinisterio('')
+    setEditandoGrupoMinisterio(false)
+    setGrupoCultoPendente('')
+    setErroGrupoMinisterio(false)
+    if (mensagemErro !== '') setMensagemErro('')
+  }
+
+  if (novoCargo !== '') {
     setErroCargo(false)
     if (mensagemErro !== '') setMensagemErro('')
   }
@@ -199,6 +256,114 @@ navigate('/selecao')
 </select>
 
         </div>
+
+        {cargo !== '' && (
+        <div className="grupo-identificacao">
+
+          <label className="grupo-identificacao-opcao">
+            <input
+              type="checkbox"
+              checked={ehGrupoMinisterio}
+              onChange={(e) => {
+                const marcado = e.target.checked
+
+                setEhGrupoMinisterio(marcado)
+                setEditandoGrupoMinisterio(marcado)
+
+                if (!marcado) {
+                  setGrupoMinisterio('')
+                  setGrupoCultoPendente('')
+                  setErroGrupoMinisterio(false)
+                  if (mensagemErro !== '') setMensagemErro('')
+                }
+              }}
+            />
+            Grupo / Ministério
+          </label>
+
+          {ehGrupoMinisterio && grupoMinisterio === '' && (
+            <>
+            <label className="identificacao-label">
+              Grupo / Ministério
+            </label>
+            <select
+              className={`identificacao-select ${erroGrupoMinisterio ? 'erro' : ''}`}
+              value={grupoMinisterio}
+              onChange={(e) => {
+                setGrupoMinisterio(e.target.value)
+                setEditandoGrupoMinisterio(e.target.value === '')
+                setGrupoCultoPendente(cultosCorrespondentes[e.target.value] ? e.target.value : '')
+
+                if (e.target.value !== '') {
+                  setErroGrupoMinisterio(false)
+                  if (mensagemErro !== '') setMensagemErro('')
+                }
+              }}
+            >
+              <option value="">Selecione...</option>
+              {gruposMinisterio.map((grupo) => (
+                <option key={grupo}>{grupo}</option>
+              ))}
+            </select>
+            </>
+          )}
+
+          {ehGrupoMinisterio && grupoMinisterio !== '' && !editandoGrupoMinisterio && (
+            <button
+              type="button"
+              className="grupo-identificacao-selecionado"
+              onClick={() => setEditandoGrupoMinisterio(true)}
+            >
+              <span>{grupoMinisterio}</span>
+              <span aria-hidden="true">›</span>
+            </button>
+          )}
+
+          {ehGrupoMinisterio && grupoMinisterio !== '' && editandoGrupoMinisterio && (
+            <div
+              className="grupo-identificacao-opcoes"
+              role="listbox"
+              aria-label="Grupo / Ministério"
+            >
+              {gruposMinisterio.map((grupo) => (
+                <button
+                  type="button"
+                  className={`grupo-identificacao-opcao-item ${grupo === grupoMinisterio ? 'selecionado' : ''}`}
+                  key={grupo}
+                  onClick={() => {
+                    selecionarGrupoMinisterio(grupo)
+                  }}
+                >
+                  {grupo}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {grupoCultoPendente !== '' && (
+            <div className="grupo-culto-pergunta">
+              <p>
+                Deseja selecionar também o culto de {grupoCultoPendente}?
+              </p>
+              <div className="grupo-culto-acoes">
+                <button
+                  type="button"
+                  onClick={() => responderCultoDoGrupo(true)}
+                >
+                  Sim
+                </button>
+                <button
+                  type="button"
+                  onClick={() => responderCultoDoGrupo(false)}
+                >
+                  Não
+                </button>
+              </div>
+            </div>
+          )}
+
+        </div>
+        )}
 
         <div className="campo campo4">
 
@@ -239,9 +404,11 @@ navigate('/selecao')
   value={culto}
   onChange={(e) => {
 
-  setCulto(e.target.value)
+  const novoCulto = e.target.value
 
-  if (e.target.value !== '') {
+  setCulto(novoCulto)
+
+  if (novoCulto !== '') {
     setErroCulto(false)
     if (mensagemErro !== '') setMensagemErro('')
   }

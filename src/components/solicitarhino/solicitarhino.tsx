@@ -30,16 +30,16 @@ function SolicitarHino({
     onFechar
 }: Props) {
 
-    if (!aberto) {
-        return null
-    }
-
     const [nomeHino, setNomeHino] = useState('')
     const [nomeVersao, setNomeVersao] = useState('')
     const [youtube, setYoutube] = useState('')
 
     const [erro, setErro] = useState('')
     const solicitandoVersao = hinoExistente != null && onAdicionarVersao != null
+
+    if (!aberto) {
+        return null
+    }
 
     function adicionar() {
 

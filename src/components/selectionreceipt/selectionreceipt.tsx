@@ -92,6 +92,20 @@ const dataFormatada = dataSelecao
 
                 </div>
 
+                {identificacao.ehGrupoMinisterio && identificacao.grupoMinisterio && (
+                    <div className="receipt-block">
+
+                        <span className="receipt-label">
+                            GRUPO / MINISTÉRIO
+                        </span>
+
+                        <h2 className="receipt-value">
+                            {identificacao.grupoMinisterio}
+                        </h2>
+
+                    </div>
+                )}
+
                 <div className="receipt-row">
 
     <div className="receipt-block">

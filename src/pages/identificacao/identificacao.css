@@ -164,6 +164,165 @@
 
 }
 
+.grupo-identificacao{
+
+    width:420px;
+
+    margin-bottom:0;
+
+}
+
+.grupo-identificacao-opcao{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    margin-bottom:10px;
+
+    font-size:14px;
+
+    font-style:italic;
+
+    font-weight:400;
+
+}
+
+.grupo-identificacao-opcao input{
+
+    width:14px;
+
+    height:14px;
+
+}
+
+.grupo-identificacao-selecionado{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    min-height:36px;
+
+    margin:0 0 20px 20px;
+
+    border:none;
+
+    padding:6px 10px;
+
+    background:transparent;
+
+    color:#100;
+
+    cursor:pointer;
+
+    font-size:14px;
+
+    font-weight:500;
+
+    font-family:inherit;
+
+    text-align:left;
+
+}
+
+.grupo-identificacao-opcoes{
+
+    display:flex;
+
+    flex-direction:column;
+
+    width:100%;
+
+    margin:0 0 20px 0;
+
+    padding:4px;
+
+    border:1px solid #d8d8d8;
+
+    border-radius:8px;
+
+    background:white;
+
+}
+
+.grupo-identificacao-opcao-item{
+
+    width:100%;
+
+    border:none;
+
+    border-radius:6px;
+
+    padding:9px 10px;
+
+    background:transparent;
+
+    color:#100;
+
+    cursor:pointer;
+
+    font-size:14px;
+
+    font-family:inherit;
+
+    text-align:left;
+
+}
+
+.grupo-identificacao-opcao-item:hover,
+.grupo-identificacao-opcao-item.selecionado{
+
+    background:#f1f1f1;
+
+}
+
+.grupo-culto-pergunta{
+
+    margin:0 0 20px 20px;
+
+    font-size:13px;
+
+    color:#555;
+
+}
+
+.grupo-culto-pergunta p{
+
+    margin:0 0 8px;
+
+}
+
+.grupo-culto-acoes{
+
+    display:flex;
+
+    gap:8px;
+
+}
+
+.grupo-culto-acoes button{
+
+    border:1px solid #d8d8d8;
+
+    border-radius:6px;
+
+    padding:5px 12px;
+
+    background:white;
+
+    color:#333;
+
+    cursor:pointer;
+
+    font:inherit;
+
+}
+
 
 /* =======================================================
    CAMPOS DE TEXTO
@@ -373,6 +532,12 @@
 }
 
 .campo{
+
+    width:90%;
+
+}
+
+.grupo-identificacao{
 
     width:90%;
 

@@ -36,9 +36,6 @@ export async function buscarHinos(texto: string) {
 
   // Monta exatamente o formato esperado pelo Selecao.tsx
   
-console.log(hinos)
-console.log(versoes)
-  
   return listaHinos.map((hino) => ({
     id: hino.id,
     nome: hino.nome,

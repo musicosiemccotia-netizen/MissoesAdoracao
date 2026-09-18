@@ -1,6 +1,26 @@
 import { supabase } from '../lib/supabase'
 
-export async function buscarSelecoes() {
+export type ProvisorioItem = {
+    id: string
+    hino: string
+    versao: string
+}
+
+export type ProvisorioSelecao = {
+    id: string
+    culto: string
+    data_selecao: string
+    grupo_ministerio_id: string | null
+    grupoMinisterio?: string
+    participante?: {
+        nome: string
+        cargo: string
+        congregacao: string
+    }
+    repertorio: ProvisorioItem[]
+}
+
+export async function buscarSelecoes(): Promise<ProvisorioSelecao[]> {
 
     const hoje = new Date()
 
@@ -33,9 +53,19 @@ export async function buscarSelecoes() {
 
     if (erroItens) throw erroItens
 
+    const { data: gruposMinisterios, error: erroGruposMinisterios } = await supabase
+        .from('grupos_ministerios')
+        .select('id, nome')
+
+    if (erroGruposMinisterios) throw erroGruposMinisterios
+
     return selecoes.map(selecao => ({
 
         ...selecao,
+
+        grupoMinisterio: gruposMinisterios.find(
+            grupo => grupo.id === selecao.grupo_ministerio_id
+        )?.nome,
 
         participante: participantes.find(
             p => p.id === selecao.participante_id
@@ -45,6 +75,6 @@ export async function buscarSelecoes() {
             i => i.selecao_id === selecao.id
         )
 
-    }))
+    })) as ProvisorioSelecao[]
 
 }

@@ -1,15 +1,8 @@
-import { createContext, useState } from 'react'
+import { useState } from 'react'
 import type { ReactNode } from 'react'
 
 import type { identificacao } from '../../types/identificacao'
-
-type identificacaocontexttype = {
-
-    identificacao: identificacao
-
-    setidentificacao: React.Dispatch<React.SetStateAction<identificacao>>
-
-}
+import { identificacaocontext } from './identificacaocontextvalue'
 
 const identificacaoinicial: identificacao = {
 
@@ -21,13 +14,13 @@ const identificacaoinicial: identificacao = {
 
     congregacao: '',
 
-    culto: ''
+    culto: '',
+
+    ehGrupoMinisterio: false,
+
+    grupoMinisterio: ''
 
 }
-
-export const identificacaocontext = createContext<identificacaocontexttype>(
-    {} as identificacaocontexttype
-)
 
 type props = {
 

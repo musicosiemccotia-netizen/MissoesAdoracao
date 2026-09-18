@@ -2,6 +2,7 @@ import { supabase } from '../lib/supabase'
 
 type CriarSelecaoRepertorio = {
   participanteId: string
+  grupoMinisterioId: string | null
   culto: string
   data: string
 }
@@ -19,6 +20,7 @@ export async function criarSelecaoRepertorio(
     .from('selecoes_repertorio')
     .insert({
       participante_id: selecao.participanteId,
+      grupo_ministerio_id: selecao.grupoMinisterioId,
       culto: selecao.culto,
       data_selecao: selecao.data
     })

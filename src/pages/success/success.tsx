@@ -11,8 +11,8 @@ import ReceiptDownload, {
     type ReceiptDownloadRef
 } from '../../components/receiptdownload/receiptdownload'
 
-import { identificacaocontext } from '../../contexts/identificacao/identificacaocontext'
-import { selectioncontext } from '../../contexts/selectioncontext/selectioncontext'
+import { identificacaocontext } from '../../contexts/identificacao/identificacaocontextvalue'
+import { selectioncontext } from '../../contexts/selectioncontext/selectioncontextvalue'
 
 import './success.css'
 

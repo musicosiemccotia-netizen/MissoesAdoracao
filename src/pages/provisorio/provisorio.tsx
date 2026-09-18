@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react'
 
-import { buscarSelecoes } from '../../services/provisorio.service'
+import {
+    buscarSelecoes,
+    type ProvisorioSelecao
+} from '../../services/provisorio.service'
 
 import './provisorio.css'
 
 function Provisorio() {
 
-    const [selecoes, setSelecoes] = useState<any[]>([])
+    const [selecoes, setSelecoes] = useState<ProvisorioSelecao[]>([])
 
     useEffect(() => {
 
@@ -43,6 +46,13 @@ function Provisorio() {
 
                         <p>{selecao.participante?.congregacao}</p>
 
+                        {selecao.grupoMinisterio && (
+                            <p>
+                                <strong>Grupo / Ministério:</strong>{' '}
+                                {selecao.grupoMinisterio}
+                            </p>
+                        )}
+
                         <p><strong>Culto:</strong> {selecao.culto}</p>
 
                         <p>
@@ -55,7 +65,7 @@ function Provisorio() {
                         <ul>
 
                             {
-                                selecao.repertorio.map((item: any) => (
+                                selecao.repertorio.map((item) => (
 
                                     <li key={item.id}>
                                         {item.hino} ({item.versao})
