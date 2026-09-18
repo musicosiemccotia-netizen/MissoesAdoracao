@@ -53,7 +53,6 @@ function Selecao() {
     const [solicitarHinoAberto, setSolicitarHinoAberto] = useState(false)
     const [solicitarVersaoAberto, setSolicitarVersaoAberto] = useState(false)
     const blocker = useBlocker(({ currentLocation, nextLocation }) => (
-        hinosSelecionados.length > 0 &&
         currentLocation.pathname === '/selecao' &&
         nextLocation.pathname !== '/selecao' &&
         nextLocation.pathname !== '/success'
@@ -459,8 +458,8 @@ function trocarVersao(itemId: string) {
             {blocker.state === 'blocked' && (
                 <div className="selecao-modal-overlay">
                     <div className="selecao-modal">
-                        <h3>Sair da seleção?</h3>
-                        <p>Você possui hinos selecionados. Se sair agora, sua seleção será perdida.</p>
+                        <h3>Tem certeza que deseja sair da seleção?</h3>
+                        <p>Se sair agora, os dados preenchidos nesta seleção serão perdidos.</p>
                         <div className="selecao-modal-actions">
                             <button type="button" onClick={cancelarSaida}>Continuar selecionando</button>
                             <button type="button" onClick={confirmarSaidaDaSelecao}>Sair da seleção</button>

@@ -284,7 +284,7 @@ navigate('/selecao')
           {ehGrupoMinisterio && grupoMinisterio === '' && (
             <>
             <label className="identificacao-label">
-              Grupo / Ministério
+              Grupo / Ministério *
             </label>
             <select
               className={`identificacao-select ${erroGrupoMinisterio ? 'erro' : ''}`}

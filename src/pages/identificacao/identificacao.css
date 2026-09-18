@@ -188,6 +188,8 @@
 
     font-weight:400;
 
+    color:#08060d;
+
 }
 
 .grupo-identificacao-opcao input{
@@ -195,6 +197,10 @@
     width:14px;
 
     height:14px;
+
+    accent-color:#08060d;
+
+    color-scheme:light;
 
 }
 
